@@ -1,0 +1,11 @@
+<h1>Terceros</h1>
+<ul>
+    {% for terceros in object_list %}
+    <li>{{ tercero.idTer }}  :  
+    <a >{{ tercero.idTer }}</a>
+    <a >delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url "f_terceros" %}">New</a>
