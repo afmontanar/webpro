@@ -53,19 +53,15 @@ ROOT_URLCONF = 'misitio.urls'
 
 WSGI_APPLICATION = 'misitio.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'misitio',
-        'USER': 'postgres',
-        'PASSWORD': '1988',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.sqlite3',
+		'NAME': 'miniplataforma.db',
+		'USER': '',
+		'PASSWORD': '',
+		'HOST': '',
+		'PORT': '',
+	}
 }
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -85,3 +81,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
