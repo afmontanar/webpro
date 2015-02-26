@@ -1,0 +1,57 @@
+afmontanar@afmontanar:~$ cd /home/afmontanar/ProjectsWebs/misitioa
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git init
+Initialized empty Git repository in /home/afmontanar/ProjectsWebs/misitioa/.git/
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git add README.md
+fatal: pathspec «README.md» no coincide con ningún archivo
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git add .
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git commit -
+error: pathspec '-' did not match any file(s) known to git.
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git commit -m "Cargando los datos"
+[master (root-commit) 7968e34] Cargando los datos
+ 25 files changed, 449 insertions(+)
+ create mode 100644 misitio/clases/__init__.py
+ create mode 100644 misitio/clases/__init__.pyc
+ create mode 100644 misitio/clases/admin.py
+ create mode 100644 misitio/clases/admin.pyc
+ create mode 100644 misitio/clases/migrations/0001_initial.py
+ create mode 100644 misitio/clases/migrations/0001_initial.pyc
+ create mode 100644 misitio/clases/migrations/__init__.py
+ create mode 100644 misitio/clases/migrations/__init__.pyc
+ create mode 100644 misitio/clases/models.py
+ create mode 100644 misitio/clases/models.pyc
+ create mode 100644 misitio/clases/templates/f_terceros.html
+ create mode 100644 misitio/clases/templates/terceros_list.html
+ create mode 100644 misitio/clases/tests.py
+ create mode 100644 misitio/clases/views.py
+ create mode 100644 misitio/clases/views.pyc
+ create mode 100644 misitio/db.sqlite3
+ create mode 100644 misitio/manage.py
+ create mode 100644 misitio/misitio/__init__.py
+ create mode 100644 misitio/misitio/__init__.pyc
+ create mode 100644 misitio/misitio/settings.py
+ create mode 100644 misitio/misitio/settings.pyc
+ create mode 100644 misitio/misitio/urls.py
+ create mode 100644 misitio/misitio/urls.pyc
+ create mode 100644 misitio/misitio/wsgi.py
+ create mode 100644 misitio/misitio/wsgi.pyc
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git remote add origin git@github.com:afmontanar/webpro.git
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git push origin master
+Warning: Permanently added the RSA host key for IP address '192.30.252.130' to the list of known hosts.
+Enter passphrase for key '/home/afmontanar/.ssh/id_rsa': 
+Enter passphrase for key '/home/afmontanar/.ssh/id_rsa': 
+Enter passphrase for key '/home/afmontanar/.ssh/id_rsa': 
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ git push origin master
+Enter passphrase for key '/home/afmontanar/.ssh/id_rsa': 
+Counting objects: 30, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (28/28), done.
+Writing objects: 100% (30/30), 12.36 KiB | 0 bytes/s, done.
+Total 30 (delta 2), reused 0 (delta 0)
+To git@github.com:afmontanar/webpro.git
+ * [new branch]      master -> master
+afmontanar@afmontanar:~/ProjectsWebs/misitioa$ 

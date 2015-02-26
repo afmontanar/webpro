@@ -8,7 +8,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.tercero_list ,name='tercero_list'),
-    url(r'^new$', views.tercero_create, name='f_terceros'),
-    
+    url(r'^cliente$', views.cliente, name='cliente'),
 )

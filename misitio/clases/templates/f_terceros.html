@@ -8,8 +8,7 @@
 		        <td class='a1-t'></td>
 		  	     <td><br></td>
 		  	     <td class='a2-t'></td>
-		    </tr><!-- Fin Top-->
-		             
+		    </tr><!-- Fin Top-->	             
           <tr><!-- Inicio Cuerpo-->
             <td class='a1-c' align='center'>
             </td>
@@ -137,77 +136,3 @@
    </body>
 </html>
 
-<?php
-function SAVE_TER()
-{   global $conex;
-    $errores= array();
-    $errores1=VALID_CAMPOS_OBLIGA(array("cod_ter"),$errores);
-    if($errores1==false)
-    {
-       echo "Atención - datos no validos";
-       exit;
-    }
-    
-    echo $cUuid.' 1 '.$_POST["cod_ter"].' '.$_POST["des_ter"];
-
-   $cUuid  = cStringUuid(36);
-	$cod_ter= preparar_consulta(htmlentities($_POST["cod_ter"],ENT_QUOTES,"UTF-8"));
-	$dig_ter= preparar_consulta(htmlentities($_POST["dig_ter"],ENT_QUOTES,"UTF-8"));
-	$tpo_ter= preparar_consulta(htmlentities($_POST["tpo_ter"],ENT_QUOTES,"UTF-8"));
-	$ape1ter= preparar_consulta(htmlentities($_POST["ape1ter"],ENT_QUOTES,"UTF-8"));
-   $ape2ter= preparar_consulta(htmlentities($_POST["ape2ter"],ENT_QUOTES,"UTF-8"));
-   $nom1ter= preparar_consulta(htmlentities($_POST["nom1ter"],ENT_QUOTES,"UTF-8"));
-   $nom2ter= preparar_consulta(htmlentities($_POST["nom2ter"],ENT_QUOTES,"UTF-8"));
-   $des_ter= preparar_consulta(htmlentities($_POST["des_ter"],ENT_QUOTES,"UTF-8"));
-   $swebter= preparar_consulta(htmlentities($_POST["swebter"],ENT_QUOTES,"UTF-8"));
-   $mailter= preparar_consulta(htmlentities($_POST["mailter"],ENT_QUOTES,"UTF-8"));
-   $tel1ter= preparar_consulta(htmlentities($_POST["tel1ter"],ENT_QUOTES,"UTF-8"));
-   $tel2ter= preparar_consulta(htmlentities($_POST["tel2ter"],ENT_QUOTES,"UTF-8"));
-   $tel3ter= preparar_consulta(htmlentities($_POST["tel3ter"],ENT_QUOTES,"UTF-8"));
-   $dir1ter= preparar_consulta(htmlentities($_POST["dir1ter"],ENT_QUOTES,"UTF-8"));
-   $dir2ter= preparar_consulta(htmlentities($_POST["dir2ter"],ENT_QUOTES,"UTF-8"));
-   $muniter= preparar_consulta(htmlentities($_POST["muniter"],ENT_QUOTES,"UTF-8"));
-   $depater= preparar_consulta(htmlentities($_POST["depater"],ENT_QUOTES,"UTF-8"));
-   $paister= preparar_consulta(htmlentities($_POST["paister"],ENT_QUOTES,"UTF-8"));
-	
-   echo $cUuid.' 2 '.$_POST["cod_ter"].' '.$_POST["des_ter"];
-	
-	if($_POST["recno"]=='')
-	{
-	    $csql= "INSERT INTO terceros (uuid,cod_ter,dig_ter,tpo_ter,ape1ter,ape2ter,nom1ter,nom2ter,
-	                                  des_ter,swebter,mailter,tel1ter,tel2ter,tel3ter,dir1ter,dir2ter,
-	                                  muniter,depater,paister)
-	                         VALUES ('$cUuid','$cod_ter','$dig_ter','$tpo_ter','$ape1ter','$ape2ter','$nom1ter','$nom2ter',
-	                                 '$des_ter','$swebter','$mailter','$tel1ter','$tel2ter','$tel3ter','$dir1ter','$dir2ter',
-	                                 '$muniter','$depater','$paister')";
-	}
-   else
-   {                                      
-       $csql= "UPDATE terceros SET
-               dig_ter=' {$nombre}',
-               tpo_ter=  '$tpo_ter',
-               ape1ter='{$ape1ter}',
-               ape2ter='{$ape2ter}',
-               nom1ter='{$nom1ter}',
-               nom2ter='{$nom2ter}',
-	            des_ter='{$des_ter}',
-	            swebter='{$swebter}',
-	            mailter='{$mailter}',
-	            tel1ter='{$tel1ter}',
-	            tel2ter='{$tel2ter}',
-	            tel3ter='{$tel3ter}',
-	            dir1ter='{$dir1ter}',
-	            dir2ter='{$dir2ter}',
-	            muniter='{$muniter}',
-	            depater='{$depater}',
-	            paister='{$paister}'
-	            WHERE recno = $_POST[recno]";
-   }
-   if (!mysql_query($csql,$conex))
-      {
-         die('Error: ' . mysql_error());
-      }
-   echo "1 record Actualizado Correctamente";
-   mysql_close($conex);
-}
-?>

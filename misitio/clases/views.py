@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 
-from clases.models import terceros
+from clases.models import Cliente
 
-class TerceroForm(ModelForm):
+class ClienteForm(ModelForm):
 	class Meta:
-		model = terceros
+		model = Cliente
 
 def tercero_list(request, template_name='terceros_list.html'):
 	tercero= terceros.objects.all()
@@ -13,11 +13,10 @@ def tercero_list(request, template_name='terceros_list.html'):
 	data['object_list'] = tercero
 	return render(request, template_name, data)
 
-def tercero_create(request, template_name='f_terceros.html'):
-	form = TerceroForm(request.POST or None)
-	if form.is_valid():
-		form.save()
-		return redirect('clases:terceros_list')
-	return render(request, template_name, {'form':form})
+def cliente(request, template_name='cliente.html'):
+	cliente= Cliente.objects.all()
+	data = {}
+	data['object_list'] = cliente
+	return render(request, template_name, data)
 
 # Create your views here.
