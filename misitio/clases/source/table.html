@@ -20,7 +20,17 @@
     			</tr>
     		</thead>
     		<tbody>
-    			
+    			<?php 
+    				$sql = 'SELECT * FROM course';
+    				$results = $dbh->query($sql);
+    				$rows = $results->fetchAll();
+
+    				foreach ($rows as $row) {
+    					echo '<tr id="'.$row['CourseNo'].'">';
+    					echo '<td class="crsDesc">'.$row['crsDesc'].'</td><td class="CrsUnits">'.$row['CrsUnits'].'</td>';
+    					echo '</tr>';
+    				}
+				?>
     		</tbody>
     	</table>
 

@@ -22,7 +22,7 @@ class Cliente(models.Model):
     	return self.numeroId
 
     def get_absolute_url(self):
-    	return reverse('cliente', kwargs={'pk':self.pk})
+    	return reverse('clientes', kwargs={'pk':self.pk})
 
 
 class Chofer(models.Model):

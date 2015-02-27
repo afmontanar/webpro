@@ -8,15 +8,15 @@ class ClienteForm(ModelForm):
 		model = Cliente
 
 def tercero_list(request, template_name='terceros_list.html'):
-	tercero= terceros.objects.all()
+	tercero = terceros.objects.all()
 	data = {}
 	data['object_list'] = tercero
 	return render(request, template_name, data)
 
-def cliente(request, template_name='cliente.html'):
-	cliente= Cliente.objects.all()
+def clientes(request, template_name='cliente.html'):
+	clientes = Cliente.objects.all()
 	data = {}
-	data['object_list'] = cliente
+	data['object_list'] = clientes
 	return render(request, template_name, data)
 
 # Create your views here.
