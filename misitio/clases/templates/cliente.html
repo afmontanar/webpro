@@ -4,25 +4,37 @@
         <script src="{{STATIC_URL}}js/jquery.js"></script>
         <script src="{{STATIC_URL}}js/edit.js"></script>
         <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" />
-        <title>Choferes</title>
+        <title>Clientes</title>
     </head>
     <body>
+    <form method="post"> {% csrf_token %}>
+         <p>Id<br>
+         {{form.TipoIdentificacion}}           {{form.numeroId}}</p>
+         <p>Nombres<br>
+         {{form.primeroNombre}}  {{form.segunNombre}}</p>
+         <p>Apellidos<br>
+         {{form.primeroApellido}}  {{form.segundoApellido}}</p>
+         <p>Direccion<br>
+         {{form.direccion}}  {{form.celular}}</p>
+         <p>Detalles<br>
+         {{form.detalles}}</p>
+    <button id="btn">Boton</button>
+    </form> 
         <table>
             <thead>
                 <tr>
                     <th>Numero Id</th>
                     <th>Primer nombre</th>
+                    <th>Segundo nombre</th>
                 </tr>
             </thead>
-            <tbody>
-                 {% for clientes in object_list %}
-                 <tr  href="{{ clientes.primeroNombre }} :">
-                    <td class="crsDesc">{{ clientes.numeroId }}</td><td class="CrsUnits">{{ clientes.primeroNombre }}</td>
-                    
+            <tbody> 
+                {% for clientes in list.object_list %}
+                    <tr  href="{{clientes.primeroNombre}}:">
+                    <td class="crsDesc">{{clientes.numeroId}}</td><td class="CrsUnits">{{clientes.primeroNombre}}</td><td class="CrsUnits">{{clientes.segunNombre}}</td>                
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </body>
 </html>

@@ -1,15 +1,13 @@
 $(function() {
-
 	//when a td element within tbody is clicked
 	$('tbody').on('click','td',function() {
 		//call displayform, passing td jQuery element
 		displayForm( $(this) );
 	});
-
 });
 
-function displayForm( cell ) {
 
+function displayForm( cell ) {
 	var column = cell.attr('class'),//class of td corresponds to database table column
 		id = cell.closest('tr').attr('id'),//id of tr corresponds to database primary key
 		cellWidth = cell.css('width'),//get width of cell for styling width of input field
@@ -39,6 +37,7 @@ function displayForm( cell ) {
 
 }
 
+
 function changeField( cell, prevContent ) {
 
 	//remove keydown listener once action initiated
@@ -65,3 +64,5 @@ function changeField( cell, prevContent ) {
 	cell.off('click');
 
 }
+
+//Agregar registro a la grilla
