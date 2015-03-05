@@ -26,8 +26,7 @@ function agregarFila() {
                     </tr>
         {% endfor %}
     */            
-		form = '<tr action="javascript: this.preventDefault"><td class="crsDesc"></td><td class="CrsUnits"></td><td class="CrsUnits"></td></tr>';
-		$("tbody").append('<tr action="javascript: this.preventDefault"><td class="crsDesc"></td><td class="CrsUnits"></td><td class="CrsUnits"></td></tr>');
+		$("tbody").append('<tr action="javascript: this.preventDefault"><td class="crsDesc"></td><td class="CrsUnits"></td><td class="CrsUnits"></td><td class="CrsUnits"></td><td class="CrsUnits"></td><td class="CrsUnits"></td></tr>');
      
 }
 
