@@ -7,7 +7,7 @@
         <title>Clientes</title>
     </head>
     <body>
-    <form method="post"> {% csrf_token %}>
+    <form method="post"> {%csrf_token%}>
          <p>Id<br>
          {{form.TipoIdentificacion}}           {{form.numeroId}}</p>
          <p>Nombres<br>
@@ -18,7 +18,7 @@
          {{form.direccion}}  {{form.celular}}</p>
          <p>Detalles<br>
          {{form.detalles}}</p>
-    <button id="btn">Boton</button>
+    <input name="boton" value="Agregar chofer" type="button"/>
     </form> 
         <table>
             <thead>
@@ -29,11 +29,13 @@
                 </tr>
             </thead>
             <tbody> 
+                <!--
                 {% for clientes in list.object_list %}
                     <tr  href="{{clientes.primeroNombre}}:">
                     <td class="crsDesc">{{clientes.numeroId}}</td><td class="CrsUnits">{{clientes.primeroNombre}}</td><td class="CrsUnits">{{clientes.segunNombre}}</td>                
                     </tr>
                 {% endfor %}
+                -->
             </tbody>
         </table>
     </body>
