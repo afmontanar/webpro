@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang='es'>
-    <head>
-        <script src="{{STATIC_URL}}js/jquery.js"></script>
-        <script src="{{STATIC_URL}}js/edit.js"></script>
-        <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" />
-        <title>Clientes</title>
-    </head>
-    <body>
-    <form method="post"> {%csrf_token%}>
-         <p>Id<br>
-         {{form.TipoIdentificacion}}           {{form.numeroId}}</p>
-         <p>Nombres<br>
-         {{form.primeroNombre}}  {{form.segunNombre}}</p>
-         <p>Apellidos<br>
-         {{form.primeroApellido}}  {{form.segundoApellido}}</p>
-         <p>Direccion<br>
-         {{form.direccion}}  {{form.celular}}</p>
-         <p>Detalles<br>
-         {{form.detalles}}</p>
-    <input name="boton" value="Agregar chofer" type="button"/>
-    </form> 
-        <table>
-            <thead>
-                <tr>
-                    <th>Identificacion</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Direccion</th>
-                    <th>Celular</th>
-                    <th>Detalle</th>
-                </tr>
-            </thead>
-            <tbody> 
-                <!--
-                {% for clientes in list.object_list %}
-                    <tr  href="{{clientes.primeroNombre}}:">
-                    <td class="crsDesc">{{clientes.numeroId}}</td><td class="CrsUnits">{{clientes.primeroNombre}}</td><td class="CrsUnits">{{clientes.segunNombre}}</td>                
-                    </tr>
-                {% endfor %}
-                -->
-            </tbody>
-        </table>
-        <button type="submit">Guardar</button>
-    </body>
+<head>
+<script src="{{STATIC_URL}}js/jquery.js"></script>
+<script src="{{STATIC_URL}}js/edit.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}css/style.css" />
+<title>Clientes</title>
+</head>
+<body>
+<form method="post"> {%csrf_token%}>
+<p>Id<br>
+{{form.TipoIdentificacion}} {{form.numeroId}}</p>
+<p>Nombres<br>
+{{form.primeroNombre}} {{form.segunNombre}}</p>
+<p>Apellidos<br>
+{{form.primeroApellido}} {{form.segundoApellido}}</p>
+<p>Direccion<br>
+{{form.direccion}} {{form.celular}}</p>
+<p>Detalles<br>
+{{form.detalles}}</p>
+<input name="boton" value="Agregar chofer" type="button"/>
+</form>
+<table>
+<thead>
+<tr>
+<th>Identificacion</th>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Direccion</th>
+<th>Celular</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<!--
+{% for clientes in list.object_list %}
+<tr href="{{clientes.primeroNombre}}:">
+<td class="crsDesc">{{clientes.numeroId}}</td><td class="CrsUnits">{{clientes.primeroNombre}}</td><td class="CrsUnits">{{clientes.segunNombre}}</td>
+</tr>
+{% endfor %}
+-->
+</tbody>
+</table>
+<button type="submit">Guardar</button>
+</body>
 </html>

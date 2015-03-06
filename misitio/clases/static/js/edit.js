@@ -14,7 +14,10 @@ $(function() {
 	});
 	$('input').on('click',function() {
 		//call displayform, passing td jQuery element
-		agregarFila();
+		//if ($(":input[name='boton']").length>0){agregarFila();}
+		if($(this).attr('name') == 'boton' ){
+			agregarFila();
+		}
 	});
 });
 
