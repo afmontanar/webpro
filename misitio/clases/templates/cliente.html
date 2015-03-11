@@ -1,46 +1,167 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html>
 <head>
-<script src="{{STATIC_URL}}js/jquery.js"></script>
-<script src="{{STATIC_URL}}js/edit.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}js/dojo-release-1.10.4/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" />
+<script>dojoConfig = {async: true, parseOnLoad: true}</script>
+<script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojo/dojo.js'></script>
+
+<!-- Importacion para el dojo dialog form--> 
+<script>
+require(["dojo/parser", "dijit/Dialog", "dijit/form/Button", "dijit/form/TextBox", "dijit/form/DateTextBox", "dijit/form/TimeTextBox"]);
+</script>
+
+<!-- Importacion para el dojo menu bar--> 
+ <script>
+require(["dojo/parser", "dijit/MenuBar", "dijit/MenuBarItem", "dijit/PopupMenuBarItem","dijit/DropDownMenu", "dijit/MenuItem"]);
+ </script>
+
+<style type="text/css">
+@import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/claroGrid.css";
+
+/*Grid needs an explicit height by default*/
+#gridDiv {
+    height: 14em;
+}
+    </style>
+
+<script src='{{STATIC_URL}}js/datagrid.js'></script>
 <title>Clientes</title>
 </head>
-<body>
-<form method="post"> {%csrf_token%}>
-<p>Id<br>
-{{form.TipoIdentificacion}} {{form.numeroId}}</p>
-<p>Nombres<br>
-{{form.primeroNombre}} {{form.segunNombre}}</p>
-<p>Apellidos<br>
-{{form.primeroApellido}} {{form.segundoApellido}}</p>
-<p>Direccion<br>
-{{form.direccion}} {{form.celular}}</p>
-<p>Detalles<br>
-{{form.detalles}}</p>
-<input name="boton" value="Agregar chofer" type="button"/>
+<body class="claro">
+
+
+
+<!-- Este es el codigo del menu bar-->
+<div data-dojo-type="dijit/MenuBar" id="navMenu">
+    <div data-dojo-type="dijit/PopupMenuBarItem">
+        <span>Inicio</span>
+        <div data-dojo-type="dijit/DropDownMenu" id="fileMenu">
+            <div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick:function(){myFormDialog.show();}">Cliente</div>
+            <div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick:function(){alert('file 2');}">Historia de vehiculo</div>
+            <div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick:function(){alert('file 2');}">Busqueda historial de vehiculos</div>
+        </div>
+    </div>
+</div>
+<!-- Este es el codigo del menu bar-->
+
+<!-- Aca empieza el Dialogform-->
+<div data-dojo-type="dijit/Dialog" data-dojo-id="myFormDialog" title="Cliente" style="width: 1300px"
+    execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+
+    <div class="dijitDialogPaneContentArea">
+
+
+<form>
+<fieldset class="izquierda">
+ <legend>Datos del cliente (Dueño del vehiculo)</legend>
+<fieldset class="izquierda">
+
+<div>
+  <label for="tipi">Tipo de identificacion: </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="tipi" id="tipi">
+</div>
+
+<div>
+  <label for="pnom">Primer nombre: </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="pnom" id="pnom">
+</div>
+
+<div>
+  <label for="snom">Segundo nombre: </label>
+  <input data-dojo-type="dijit/form/DateTextBox" data-dojo-id="myStartDate" onChange="myEndDate.constraints.min = arguments[0];" type="text" name="sdate" id="snom">
+</div>
+ 
+<div>
+  <label for="papellido">Primer apellido: </label>
+  <input type="password" id="contrasena" />
+</div>
+
+<div>
+  <label for="sapellido">Segundo apellido: </label>
+  <input data-dojo-type="dijit/form/DateTextBox" data-dojo-id="myEndDate" onChange="myStartDate.constraints.max = arguments[0];" type="text" name="papellido" id="papellido">
+</div>
+
+</fieldset>
+
+
+
+<fieldset class="derecha">
+ <div>
+  <label for="desc">Description: </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="desc" id="desc">
+</div>
+<div>
+  <label for="nide">Numero Id </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="nide" id="nide">
+</div>
+
+<div>
+  <label for="dir">Direccion: </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="dir" id="dir">
+</div>
+
+<div>
+  <label for="detail">Detalle: </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="detal" id="detal">
+</div>
+ 
+<div>
+  <label for="cel">Celular: </label>
+  <input data-dojo-type="dijit/form/TextBox" type="text" name="cel" id="cel">
+</div>
+</fieldset>
+</fieldset>
+
+<div class="dijitDialogPaneActionBar">
+        <button data-dojo-type="dijit/form/Button" type="submit" onClick="return myFormDialog.isValid();">
+            Agregar chofer
+        </button>
+        <button data-dojo-type="dijit/form/Button" type="button" onClick="myFormDialog.hide()">
+            Guardar
+        </button>
+</div>
+
+<fieldset class="grilla">
+
+<div id="gridDiv"></div>
+</fieldset>
+
+
 </form>
-<table>
-<thead>
-<tr>
-<th>Identificacion</th>
-<th>Nombres</th>
-<th>Apellidos</th>
-<th>Direccion</th>
-<th>Celular</th>
-<th>Detalle</th>
-</tr>
-</thead>
-<tbody>
-<!--
-{% for clientes in list.object_list %}
-<tr href="{{clientes.primeroNombre}}:">
-<td class="crsDesc">{{clientes.numeroId}}</td><td class="CrsUnits">{{clientes.primeroNombre}}</td><td class="CrsUnits">{{clientes.segunNombre}}</td>
-</tr>
-{% endfor %}
--->
-</tbody>
-</table>
-<button type="submit">Guardar</button>
+
+
+    <!--
+        <table>
+            <tr>
+                <td><label for="tipi">Tipo de identificacion: </label></td>
+                <td><input data-dojo-type="dijit/form/TextBox" type="text" name="tipi" id="tipi"></td>
+            </tr>
+            <tr>
+                <td><label for="pnom">Primer nombre: </label></td>
+                <td><input data-dojo-type="dijit/form/TextBox" type="text" name="pnom" id="pnom"></td>
+            </tr>
+            <tr>
+                <td><label for="snom">Segundo nombre: </label></td>
+                <td><input data-dojo-type="dijit/form/DateTextBox" data-dojo-id="myStartDate" onChange="myEndDate.constraints.min = arguments[0];" type="text" name="sdate" id="snom"></td>
+            </tr>
+            <tr>
+                <td><label for="papellido">Primer apellido: </label></td>
+                <td><input data-dojo-type="dijit/form/DateTextBox" data-dojo-id="myEndDate" onChange="myStartDate.constraints.max = arguments[0];" type="text" name="papellido" id="papellido"></td>
+            </tr>
+            <tr>
+                <td><label for="sapellido">Segundo apellido: </label></td>
+                <td><input data-dojo-type="dijit/form/TimeTextBox" type="text" name="sapellido" id="sapellido"></td>
+            </tr>
+            <tr>
+                <td><label for="desc">Description: </label></td>
+                <td><input data-dojo-type="dijit/form/TextBox" type="text" name="desc" id="desc"></td>
+            </tr>
+        </table>
+    -->
+    
+</div>
+<!-- Aca termina el Dialogform-->
+
 </body>
 </html>

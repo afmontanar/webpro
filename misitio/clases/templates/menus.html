@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<link rel="stylesheet" href="/home/afmontanar/Descargas/dojo-release-1.10.4/dijit/themes/claro/claro.css">	
+	<script>dojoConfig = {async: true}</script>
+	<script src='/home/afmontanar/ProjectsWebs/misitioa/misitio/clases/static/js/dojo-release-1.10.4/dojo/dojo.js'></script>
+	<script>
+require([
+    "dijit/Menu",
+    "dijit/MenuItem",
+    "dijit/CheckedMenuItem",
+    "dijit/MenuSeparator",
+    "dijit/PopupMenuItem",
+    "dojo/domReady!"
+], function(Menu, MenuItem, CheckedMenuItem, MenuSeparator, PopupMenuItem){
+    var pMenu;
+    pMenu = new Menu({
+        targetNodeIds: ["progmenu"]
+    });
+    pMenu.addChild(new MenuItem({
+        label: "Simple menu item"
+    }));
+    pMenu.addChild(new MenuItem({
+        label: "Disabled menu item",
+        disabled: true
+    }));
+    pMenu.addChild(new MenuItem({
+        label: "Menu Item With an icon",
+        iconClass: "dijitEditorIcon dijitEditorIconCut",
+        onClick: function(){alert('i was clicked')}
+    }));
+    pMenu.addChild(new CheckedMenuItem({
+        label: "checkable menu item"
+    }));
+    pMenu.addChild(new MenuSeparator());
+
+    var pSubMenu = new Menu();
+    pSubMenu.addChild(new MenuItem({
+        label: "Submenu item"
+    }));
+    pSubMenu.addChild(new MenuItem({
+        label: "Submenu item"
+    }));
+    pMenu.addChild(new PopupMenuItem({
+        label: "Submenu",
+        popup: pSubMenu
+    }));
+
+    pMenu.startup();
+});
+	</script>
+</head>
+<body class="claro">
+    <span id="progmenu">Right click me to get a menu</span>
+</body>
+</html>
