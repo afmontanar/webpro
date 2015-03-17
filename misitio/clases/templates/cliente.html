@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" />
 <script>dojoConfig = {async: true, parseOnLoad: true}</script>
 <script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojo/dojo.js'></script>
-
+<script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/DataGrid.js'></script>
 <!-- Importacion para el dojo dialog form--> 
 <script>
 require(["dojo/parser", "dijit/Dialog", "dijit/form/Button", "dijit/form/TextBox", "dijit/form/DateTextBox", "dijit/form/TimeTextBox"]);
@@ -15,13 +15,17 @@ require(["dojo/parser", "dijit/Dialog", "dijit/form/Button", "dijit/form/TextBox
  <script>
 require(["dojo/parser", "dijit/MenuBar", "dijit/MenuBarItem", "dijit/PopupMenuBarItem","dijit/DropDownMenu", "dijit/MenuItem"]);
  </script>
+<!-- tabla y agregar evento en tabla--> 
+ <script>
+require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button"]);
+</script>
 
 <style type="text/css">
 @import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/claroGrid.css";
 
 /*Grid needs an explicit height by default*/
 #gridDiv {
-    height: 14em;
+    height: 13em;
 }
     </style>
 
@@ -46,16 +50,15 @@ require(["dojo/parser", "dijit/MenuBar", "dijit/MenuBarItem", "dijit/PopupMenuBa
 <!-- Este es el codigo del menu bar-->
 
 <!-- Aca empieza el Dialogform-->
-<div data-dojo-type="dijit/Dialog" data-dojo-id="myFormDialog" title="Cliente" style="width: 1300px"
+<div data-dojo-type="dijit/Dialog" data-dojo-id="myFormDialog" title="Cliente" style="width: 1100px;"
     execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
-
-    <div class="dijitDialogPaneContentArea">
-
+<div class="dijitDialogPaneContentArea">
 
 <form>
-<fieldset class="izquierda">
- <legend>Datos del cliente (Dueño del vehiculo)</legend>
-<fieldset class="izquierda">
+<div id="flotante">
+<div class="izquierdad">
+ <legend  style="font-weight: bold;">Datos del cliente (Dueño del vehiculo)</legend>
+<div class="izquierda">
 
 <div>
   <label for="tipi">Tipo de identificacion: </label>
@@ -82,11 +85,11 @@ require(["dojo/parser", "dijit/MenuBar", "dijit/MenuBarItem", "dijit/PopupMenuBa
   <input data-dojo-type="dijit/form/DateTextBox" data-dojo-id="myEndDate" onChange="myStartDate.constraints.max = arguments[0];" type="text" name="papellido" id="papellido">
 </div>
 
-</fieldset>
+</div>
 
 
 
-<fieldset class="derecha">
+<div class="derecha">
  <div>
   <label for="desc">Description: </label>
   <input data-dojo-type="dijit/form/TextBox" type="text" name="desc" id="desc">
@@ -110,24 +113,37 @@ require(["dojo/parser", "dijit/MenuBar", "dijit/MenuBarItem", "dijit/PopupMenuBa
   <label for="cel">Celular: </label>
   <input data-dojo-type="dijit/form/TextBox" type="text" name="cel" id="cel">
 </div>
-</fieldset>
-</fieldset>
+</div>
+</div>
 
-<div class="dijitDialogPaneActionBar">
-        <button data-dojo-type="dijit/form/Button" type="submit" onClick="return myFormDialog.isValid();">
-            Agregar chofer
-        </button>
+<div class="espacio">
+
+</div>
+
+
+
+<div class="grilla">
+<div class="bajar" >
+<div data-dojo-type="dijit.form.Button">
+    Agregar Fila
+    <script type="dojo/method" data-dojo-event="onClick" data-dojo-args="evt">
+        // set the properties for the new item:
+        // Insert the new item into the store:
+        // (we use store3 from the example above in this example)
+        store.newItem(myNewItem);
+    </script>
+</div>
         <button data-dojo-type="dijit/form/Button" type="button" onClick="myFormDialog.hide()">
             Guardar
         </button>
 </div>
+</div>
+<div class="bajarq">
+<div id="gridDiv" ></div>
+</div>
+</div>
 
-<fieldset class="grilla">
-
-<div id="gridDiv"></div>
-</fieldset>
-
-
+</div>
 </form>
 
 

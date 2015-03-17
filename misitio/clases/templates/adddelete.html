@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
-
     <link rel="stylesheet" href="/home/afmontanar/ProjectsWebs/misitioa/misitio/clases/static/js/dojo-release-1.10.4/dijit/themes/claro/claro.css">
     <style type="text/css">
-@import "undefineddijit/themes/nihilo/nihilo.css";
-@import "undefineddojox/grid/resources/nihiloGrid.css";
+@import "/home/afmontanar/ProjectsWebs/misitioa/misitio/clases/static/js/dojo-release-1.10.4/dijit/themes/nihilo/nihilo.css";
+@import "/home/afmontanar/ProjectsWebs/misitioa/misitio/clases/static/js/dojo-release-1.10.4/dojox/grid/resources/nihiloGrid.css";
     </style>
     <script>dojoConfig = {parseOnLoad: true}</script>
-    <script src='../../_static/js/dojo/dojo.js'></script>
+    <script src='/home/afmontanar/ProjectsWebs/misitioa/misitio/clases/static/js/dojo-release-1.10.4/dojo/dojo.js'></script>
     
     <script>
-dojo.require("dojox.grid.DataGrid");
-dojo.require("dojo.data.ItemFileWriteStore");
-dojo.require("dijit.form.Button");
+require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button"]);
     </script>
 </head>
 <body class="claro">
-    <span data-dojo-type="dojo.data.ItemFileWriteStore"
+<span data-dojo-type="dojo.data.ItemFileWriteStore"
     data-dojo-id="store3"
     data-dojo-props="url:'undefineddijit/tests/_data/countries.json'">
 </span>
@@ -27,13 +24,13 @@ dojo.require("dijit.form.Button");
     This example shows, how to add/remove rows
 </div>
 
-<table data-dojo-type="dojox.grid.DataGrid"
-    data-dojo-id="grid5"
-    data-dojo-props="store:store3,
+<table data-dojo-type="dojox.grid.DataGrid",
+    data-dojo-id="grid5",
+    data-dojo-props="store:store3",
     query:{ name: '*' },
     rowsPerPage:20,
     clientSort:true,
-    rowSelector:'20px'
+    rowSelector:'20px',
     style="width: 400px; height: 200px;">
     <thead>
         <tr>

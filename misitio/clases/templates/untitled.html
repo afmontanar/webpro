@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>Ejemplo</title>
+		<style type="text/css">
+		<!--
+			div { margin: 2px 0; }
+			p { float: left;  }
+			
+			div#ejemplo2, div#ejemplo1 { height: 205px; }			
+			div#ejemplo1 .right_wrapper {
+				float: right;
+				height: 90px;
+				width: 300px;
+			}			
+			div#ejemplo1 .d1, div#ejemplo1 .d2 {
+				border: 2px solid #aeaeae;
+				width:300px;
+								
+			}
+			div#ejemplo1 .d1 { height: 60px; }			
+			div#ejemplo1 .d2 { height:30px;	}
+			
+			/* Otra forma */
+			div#ejemplo2 .d1, div#ejemplo2 .d2 {
+				border: 2px solid #aeaeae;
+				width:300px;				
+				float: right;
+				clear: both;
+			}
+			div#ejemplo2 .d1 { height: 60px; }
+			div#ejemplo2 .d2 { height:30px;	}
+		-->
+		</style>
+	</head>
+	<body>
+		<div id="ejemplo1">
+			<h3>Utilizando un "Div" contenedor</h3>
+			<p>Esta es la opción más recomendada</p>
+			<div class="right_wrapper">
+				<div class="d1">&nbsp;</div>
+				<div class="d2">&nbsp;</div>
+			</div>
+		</div>
+		<hr />
+		<div id="ejemplo2">
+			<h3>Utilizando la propiedad <em>clear: both</em></h3>
+			<p>Dependiendo de lo que necesites, esta puede ser tu mejor opción</p>
+			<div class="d1">&nbsp;</div>
+			<div class="d2">&nbsp;</div>
+		</div>
+	</body>
+</html>

@@ -6,6 +6,7 @@ require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore
       items: []
     };
     var data_list = [
+    { col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: "store", col5: "la",col6: "aa"}
     /*{ col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
       { col1: "important", col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
       { col1: "important", col2: false, col3: 'Signs can be selectively', col4: 19.34}
@@ -15,7 +16,7 @@ require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore
       data.items.push(lang.mixin({ id: i+1 }, data_list[i%l]));
     }*/
     var store = new ItemFileWriteStore({data: data});
-
+   
     /*set up layout*/
     var layout = [[
       {'name': 'Identificacion', 'field': 'id', 'width': '100px', editable: true},
@@ -38,4 +39,6 @@ require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore
 
     /*Call startup() to render the grid*/
     grid.startup();
+    grid.addRow({ col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: "store", col5: "la",col6: "aa"});
+
 });

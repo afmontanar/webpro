@@ -1,10 +1,21 @@
-label {
-  display: block;
-  margin: .30em 0 0 0;
+
+#flotante {
+    overflow: hidden;
 }
 
+#flotante .izquierdad, #flotante .espacio, #flotante .grilla{  /*hijos*/
+	float: left;
+}
+
+.izquierdad {height: 15em;width: 30em;}
+.grilla{height: 1em;width: 34em;}
 .izquierda {float:left;width: 45%;clear: left;padding:0}
 .derecha {float:right;width: 45%;clear: right;padding:0}
-.grilla{float:right;width: 52%;clear: right;padding:0}
+.espacio{height: 15em;width: 3em}
+.bajarq{ ;margin-top:50px;}
+/*.bajar{float:right;border: 2px solid #aeaeae;margin-top:10px;height: 30px;width: 300px;}*/
+.bajar{}
+
+
 
 
