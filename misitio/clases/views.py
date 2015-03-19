@@ -19,12 +19,9 @@ def tercero_list(request, template_name='terceros_list.html'):
 def clientes(request, template_name='cliente.html'):
 	form = ClienteForm(request.POST or None)
 	if form.is_valid():
-		form.save()
-	for x in xrange(1,10):
-		form1 = ChoferForm(request.POST or None)
-		if form.is_valid():
-			form.save()
-			return redirect('books_fbv:book_list')	
+		form.save()	
+	else:
+		form = ClienteForm()
 	return render(request, template_name, {'form':form})
 
 def listCliente(request, template_name='cliente.html'):

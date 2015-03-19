@@ -8,14 +8,14 @@ class Cliente(models.Model):
         ('CE', 'Cedula de extranjeria'),
         ('TI', 'Targeta de identidad'),
     )
-    TipoIdentificacion = models.CharField(max_length=3, blank=True, choices=TIPOS_IDE)
-    numeroId = models.CharField(max_length=20, blank=True,primary_key=True)
-    primeroNombre = models.CharField(max_length=20, blank=True)
+    TipoIdentificacion = models.CharField(max_length=3, choices=TIPOS_IDE)
+    numeroId = models.CharField(max_length=20, primary_key=True)
+    primeroNombre = models.CharField(max_length=20)
     segunNombre = models.CharField(max_length=20, blank=True)
     primeroApellido = models.CharField(max_length=20, blank=True)
-    segundoApellido = models.CharField(max_length=20, blank=True)
-    direccion = models.CharField(max_length=20, blank=True)
-    celular = models.CharField(max_length=60, blank=True)
+    segundoApellido = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=20)
+    celular = models.CharField(max_length=60)
     detalles = models.CharField(max_length=300, blank=True)
     
     def __unicode__(self):
