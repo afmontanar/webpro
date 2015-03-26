@@ -21,6 +21,23 @@ require(["dojo/parser", "dijit/MenuBar", "dijit/MenuBarItem", "dijit/PopupMenuBa
 require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button"]);
 </script>
 
+<script type="text/javascript">
+    djConfig = {
+        isDebug: true,
+        debugAtAllCosts: false
+    };
+</script>
+
+<script type="text/javascript">
+    dojo.require("dojo.event.*");       // sophisticated AOP event handling
+    dojo.require("dojo.io.*");          // for Ajax requests
+    dojo.require("dojo.json");          // serialization to JSON
+</script>
+
+<script type="text/javascript" src="{{STATIC_URL}}js/ajax.js">
+    alert("Algo increible acabo de ocurrir")
+</script>
+
 <style type="text/css">
 @import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/claroGrid.css";
 
@@ -64,11 +81,14 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
 <div>
   <label for="tipi">Tipo de identificacion: </label>
   {{form.TipoIdentificacion}}
+<!--<input data-dojo-type="dijit/form/ValidationTextBox" title="Tipo de identificacion:" name="tipi" data-dojo-props="required: true"></input>-->
+
 </div>
 
 <div>
   <label for="pnom">Primer nombre: </label>
-    {{form.primeroNombre}}
+    <!--{{form.primeroNombre}}-->
+    <input type="text" name="pnom" value="" id="pnom"></input>
 </div>
 
 <div>
@@ -93,7 +113,8 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
 <div class="derecha">
 <div>
   <label for="nide">Numero Id </label>
-  {{form.numeroId}}
+  <!--{{form.numeroId}}-->
+  <input type="text" name="numid" value="" id="numid"></input>
 </div>
 
 <div>
@@ -126,7 +147,7 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
     Agregar Fila
   </button>
 
-        <button data-dojo-type="dijit/form/Button"  type="submit" >
+        <button id="guardar" data-dojo-type="dijit/form/Button"  type="submit" >
             Guardar
         </button>
 </div>

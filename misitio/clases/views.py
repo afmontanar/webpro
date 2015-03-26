@@ -1,40 +1,24 @@
-from django.shortcuts import render, redirect, get_object_or_404
+import cjson
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.forms import ModelForm
 from clases.models import Cliente,Chofer
+from django.http import HttpResponse
+from django.template import loader, Context
 
 class ClienteForm(ModelForm):
 	class Meta:
 		model = Cliente
 		
-class ChoferForm(ModelForm):
-	class Meta:
-		model = Chofer
-
-def tercero_list(request, template_name='terceros_list.html'):
-	tercero = terceros.objects.all()
-	data = {}
-	data['object_list'] = tercero
-	return render(request, template_name, data)
+#puede que uno este trabajando duro para obtener cualquier objetivo pero si uno no cuanta con la guia ni la bendicion de jehova para dicha 
+#labor de nada serviran nuestros esfuerzos
 
 def clientes(request, template_name='cliente.html'):
 	form = ClienteForm(request.POST or None)
 	if form.is_valid():
-		form.save()	
+		form.save()
 	else:
 		form = ClienteForm()
 	return render(request, template_name, {'form':form})
-
-def listCliente(request, template_name='cliente.html'):
-	clientes = Cliente.objects.all()
-	data = {}
-	data['object_list'] = clientes
-	return render(request, template_name, data)
-
-def chofer(request, template_name='books_fbv/book_form.html'):
-	form = ChoferForm(request.POST or None)
-	if form.is_valid():
-		form.save()
-		return redirect('books_fbv:book_list')
-	return render(request, template_name, {'form':form})
+	
 
 # Create your views here.
