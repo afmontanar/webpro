@@ -1,8 +1,5 @@
-function myinit() {
-    // connect the event with the good handler
-    var myButton = dojo.byId("xBtn1")
-    dojo.event.connect(myButton, "onclick", "sendForm")
-}
+dojo.require("dojo.io.*");          // for Ajax requests
+dojo.require("dojo.json");          // serialization to JSON
 function sendForm() {
     var fNode = dojo.byId('xForm')
     var fParms = dojo.io.encodeForm(fNode)
@@ -60,4 +57,3 @@ function sendForm() {
     var xmlhttp = dojo.io.bind(bindArgs)
     return xmlhttp
 };
-dojo.addOnLoad(myinit);

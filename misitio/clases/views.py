@@ -12,6 +12,7 @@ class ClienteForm(ModelForm):
 #puede que uno este trabajando duro para obtener cualquier objetivo pero si uno no cuanta con la guia ni la bendicion de jehova para dicha 
 #labor de nada serviran nuestros esfuerzos
 
+"""
 def clientes(request, template_name='cliente.html'):
 	form = ClienteForm(request.POST or None)
 	if form.is_valid():
@@ -19,6 +20,12 @@ def clientes(request, template_name='cliente.html'):
 	else:
 		form = ClienteForm()
 	return render(request, template_name, {'form':form})
-	
-
-# Create your views here.
+"""
+def clientes(request,template_name='cliente.html'):
+	nide = request.POST.get("nide")
+	form = 'ola andres'
+	if nide:
+		form.save()
+	else:
+		form = ClienteForm()
+	return render(request, template_name, {'form':form})

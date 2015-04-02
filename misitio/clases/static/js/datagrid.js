@@ -63,11 +63,38 @@ var pnom = new ValidationTextBox({
         invalidMessage: "Este campo es necesario"
     }, "pnom");
 
+var pape = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "pape");
+
+var cel = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "cel");
+
+var dir = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "dir");
+
 var button = new Button({
 onClick: function () {
     if(numid.value!=""){
         if(pnom.value!=""){
-              alert("vamos pa lante")
+            if(pape.value!=""){
+              if(cel.value!=""){
+                if(dir.value!=""){
+          
+         }else{
+        alert("Campo Direccion No puede ir Vacio")
+    }   
+         }else{
+        alert("Campo Celular No puede ir Vacio")
+    }   
+         }else{
+        alert("Campo Primer apellido No puede ir Vacio")
+    }   
          }else{
         alert("Campo Primer nombre No puede ir Vacio")
     }   
@@ -77,6 +104,15 @@ onClick: function () {
 }
 }, "guardar");
 
-
-
+var button = new Button({
+onClick: function () {
+store.newItem({
+    col1: "col1-",
+    col2: "col2-",
+    col3: "col3-",
+    col4: "col4-",
+    col5: "col5-",
+    col6: "col6-"
+    });
+}}, "addRow");
 });
