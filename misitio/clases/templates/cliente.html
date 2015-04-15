@@ -68,7 +68,7 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
     execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
 <div class="dijitDialogPaneContentArea">
 
-<form id="xForm" method="post"> {%csrf_token%}
+<form > 
 <div id="flotante">
 <div class="izquierdad">
  <legend  style="font-weight: bold;">Datos del cliente (Dueño del vehiculo)</legend>
@@ -76,7 +76,7 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
 
 <div>
   <label for="tipi">Tipo de identificacion: </label>
-  {{form.TipoIdentificacion}}
+ 
 <!--<input data-dojo-type="dijit/form/ValidationTextBox" title="Tipo de identificacion:" name="tipi" data-dojo-props="required: true"></input>-->
 
 </div>
@@ -146,10 +146,45 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
     Agregar Fila
   </button>
 
-        <button data-dojo-type="dijit/form/Button"  type="submit" >
+        <button id="boton01">
             Guardar
         </button>
-</div>
+
+<script type="text/javascript">
+
+$(document).ready(function()
+  {
+  $("#boton01").click(function () {
+  //saco el valor accediendo a un input de tipo text y name = nombre
+  //alert($('input:text[name=nombre]').val());
+  //saco el valor accediendo al id del input = nombre
+  //alert($("#numid").val());
+  var id = $("#numid").val();
+  $.ajax({
+    data:{'id':id},
+    url: '/guardar-pregunta/',
+    type: 'get',
+    //success: function(data){
+     //  console.log(data);
+    //}
+  });
+  //saco el valor accediendo al class del input = nombre   
+  //alert($(".nombre").val());
+  });
+});
+/*
+    $('button').on('click',trigger);
+
+    function trigger() {
+    //call displayform, passing td jQuery element
+    //if ($(":input[name='boton']").length>0){agregarFila();}
+    if($(this).attr('name') == 'boton' ){
+      var id 
+    }
+    }
+*/
+</script>
+
 </div>
 <div class="bajarq">
 <div id="gridDiv" ></div>
