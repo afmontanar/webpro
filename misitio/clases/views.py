@@ -4,6 +4,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from clases.models import Cliente
 from django.template import RequestContext
+from django.db import IntegrityError
 
 """
 class ClienteForm(ModelForm):
@@ -27,16 +28,32 @@ def clientes(request, template_name='cliente.html'):
 	return render(request, template_name, {'form':form})
 """
 def guardar_pregunta(request):
-	pregunta = request.GET['id']
-	ti = request.GET['ti']
-	pm = request.GET['pm']
-	sn = request.GET['sn']
-	pa = request.GET['pa']
-	sa = request.GET['sa']
-	di = request.GET['di']
-	cl = request.GET['cl']
-	dt = request.GET['dt']
-	r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
+	if request.is_ajax():
+		pregunta = request.GET['id']
+		ti = request.GET['ti']
+		pm = request.GET['pm']
+		sn = request.GET['sn']
+		pa = request.GET['pa']
+		sa = request.GET['sa']
+		di = request.GET['di']
+		cl = request.GET['cl']
+		dt = request.GET['dt']
+		try:
+			r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
+			return HttpResponse(
+			json.dumps({'respuesta': 'si'}),
+			content_type="application/json; charset=uft8"
+			)
+		except IntegrityError:
+			return HttpResponse(
+			json.dumps({'respuesta': 'no'}),
+			content_type="application/json; charset=uft8"
+			)
+
 	""" preguntas = Cliente.objects.all()
 		data = serializers.serialize('json', preguntas, fields=('numeroId','primeroNombre'))
 		return HttpResponse(data, mimetype='application/json')"""
+	"""return HttpResponse(
+			json.dumps({'respuestas': data, 'pregunta': id}),
+			content_type="application/json; charset=uft8"
+			)"""

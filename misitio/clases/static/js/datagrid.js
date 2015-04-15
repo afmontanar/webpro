@@ -116,6 +116,7 @@ var dir = new ValidationTextBox({
 
 var button = new Button({
 onClick: function () {
+    if(comboBox.value!=""){
     if(numid.value!=""){
         if(pnom.value!=""){
             if(pape.value!=""){
@@ -139,6 +140,30 @@ onClick: function () {
                         },
                         // The success callback with result from server
                         load: function(newContent) {
+
+                             if(newContent=='{"respuesta": "si"}'){
+                                alert("Guardado correctamente");
+                                 numid.reset();
+                                 comboBox.reset();
+                                 pnom.reset();
+                                 snom.reset();
+                                 pape.reset();
+                                 sape.reset();
+                                 dir.reset();
+                                 cel.reset();
+                                 deta.reset();
+                             }else{
+                                alert("Este cliente ya existe");
+                                numid.reset();
+                                 comboBox.reset();
+                                 pnom.reset();
+                                 snom.reset();
+                                 pape.reset();
+                                 sape.reset();
+                                 dir.reset();
+                                 cel.reset();
+                                 deta.reset();
+                             }
                             //dom.byId("contentNode").innerHTML = newContent;
                         },
                         // The error handler
@@ -160,6 +185,9 @@ onClick: function () {
     }   
     }else{
         alert("Campo Numero de id No puede ir Vacio")
+    }
+    }else{
+        alert("Tiene que escoger el tipo de identificacion")
     }
 }
 }, "guardar");
