@@ -1,5 +1,5 @@
-require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button', 'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
-function (lang, DataGrid, ItemFileWriteStore, Button, dom, domReady, ValidationTextBox) {
+require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", 'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
+function (lang, DataGrid, ItemFileWriteStore, Button, xhr, dom, domReady, ValidationTextBox) {
 /*set up data store*/
 var data = {
 items: []
@@ -80,13 +80,30 @@ var dir = new ValidationTextBox({
 
 var button = new Button({
 onClick: function () {
-    if(numid.value!=""){
+    /*if(numid.value!=""){
         if(pnom.value!=""){
             if(pape.value!=""){
               if(cel.value!=""){
                 if(dir.value!=""){
-          
-         }else{
+                    */
+                     xhr.get({
+            // The URL of the request
+            //data:{'id':id},
+            url: '/guardar-pregunta/',
+            //type: 'get',
+            content: {
+                id: numid.value
+            },
+            // The success callback with result from server
+            load: function(newContent) {
+                //dom.byId("contentNode").innerHTML = newContent;
+            },
+            // The error handler
+            error: function() {
+                // Do nothing -- keep old content there
+            }
+        });
+        /* }else{
         alert("Campo Direccion No puede ir Vacio")
     }   
          }else{
@@ -100,7 +117,7 @@ onClick: function () {
     }   
     }else{
         alert("Campo Numero de id No puede ir Vacio")
-    }
+    }*/
 }
 }, "guardar");
 
