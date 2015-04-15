@@ -28,7 +28,15 @@ def clientes(request, template_name='cliente.html'):
 """
 def guardar_pregunta(request):
 	pregunta = request.GET['id']
-	r = Cliente.objects.create(TipoIdentificacion='cc', numeroId=pregunta, primeroNombre='andreCalmar',segunNombre='otencio',primeroApellido='pascuales',segundoApellido='omirana',direccion='crr12',celular='301692',detalles='ninguno')
+	ti = request.GET['ti']
+	pm = request.GET['pm']
+	sn = request.GET['sn']
+	pa = request.GET['pa']
+	sa = request.GET['sa']
+	di = request.GET['di']
+	cl = request.GET['cl']
+	dt = request.GET['dt']
+	r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
 	""" preguntas = Cliente.objects.all()
 		data = serializers.serialize('json', preguntas, fields=('numeroId','primeroNombre'))
 		return HttpResponse(data, mimetype='application/json')"""

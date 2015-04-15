@@ -1,5 +1,5 @@
-require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", 'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
-function (lang, DataGrid, ItemFileWriteStore, Button, xhr, dom, domReady, ValidationTextBox) {
+require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
+function (lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
 /*set up data store*/
 var data = {
 items: []
@@ -51,7 +51,43 @@ rowSelector: '20px'
 /*append the new grid to the div*/
 grid.placeAt("gridDiv");
 /*Call startup() to render the grid*/
-grid.startup();
+//grid.startup();
+
+var stateStore = new Memory({
+        data: [
+            {name:"CC", id:"CC"},
+            {name:"CE", id:"CE"},
+            {name:"TI", id:"TI"}
+        ]
+    });
+
+    var comboBox = new ComboBox({
+        id: "stateSelect",
+        name: "state",
+        value: "",
+        store: stateStore,
+        searchAttr: "name"
+    }, "stateSelect");
+
+
+
+
+var deta = new ValidationTextBox({
+        required: false,
+        invalidMessage: "Este campo es necesario"
+    }, "deta");
+
+
+var sape = new ValidationTextBox({
+        required: false,
+        invalidMessage: "Este campo es necesario"
+    }, "sape");
+
+var snom = new ValidationTextBox({
+        required: false,
+        invalidMessage: "Este campo es necesario"
+    }, "snom");
+
 
 var numid = new ValidationTextBox({
         required: true,
@@ -80,30 +116,37 @@ var dir = new ValidationTextBox({
 
 var button = new Button({
 onClick: function () {
-    /*if(numid.value!=""){
+    if(numid.value!=""){
         if(pnom.value!=""){
             if(pape.value!=""){
               if(cel.value!=""){
                 if(dir.value!=""){
-                    */
                      xhr.get({
-            // The URL of the request
-            //data:{'id':id},
-            url: '/guardar-pregunta/',
-            //type: 'get',
-            content: {
-                id: numid.value
-            },
-            // The success callback with result from server
-            load: function(newContent) {
-                //dom.byId("contentNode").innerHTML = newContent;
-            },
-            // The error handler
-            error: function() {
-                // Do nothing -- keep old content there
-            }
+                        // The URL of the request
+                        //data:{'id':id},
+                        url: '/guardar-pregunta/',
+                        //type: 'get',
+                        content: {
+                            id: numid.value,
+                            ti: comboBox.value,
+                            pm: pnom.value,
+                            sn: snom.value,
+                            pa: pape.value,
+                            sa: sape.value,
+                            di: dir.value,
+                            cl: cel.value,
+                            dt: deta.value
+                        },
+                        // The success callback with result from server
+                        load: function(newContent) {
+                            //dom.byId("contentNode").innerHTML = newContent;
+                        },
+                        // The error handler
+                        error: function() {
+                            // Do nothing -- keep old content there
+                        }
         });
-        /* }else{
+         }else{
         alert("Campo Direccion No puede ir Vacio")
     }   
          }else{
@@ -117,7 +160,7 @@ onClick: function () {
     }   
     }else{
         alert("Campo Numero de id No puede ir Vacio")
-    }*/
+    }
 }
 }, "guardar");
 

@@ -40,6 +40,7 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
 /*Grid needs an explicit height by default*/
 #gridDiv {
     height: 13em;
+    width: 50em;
 }
     </style>
 
@@ -78,7 +79,7 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
   <label for="tipi">Tipo de identificacion: </label>
  
 <!--<input data-dojo-type="dijit/form/ValidationTextBox" title="Tipo de identificacion:" name="tipi" data-dojo-props="required: true"></input>-->
-
+<input id="stateSelect">
 </div>
 
 <div>
@@ -90,17 +91,19 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
 <div>
   <label for="snom">Segundo nombre: </label>
       <!--{{form.segunNombre}}-->
+      <input type="text" name="snom" value="" id="snom"></input>
 </div>
  
 <div>
   <label for="papellido">Primer apellido: </label>
-  <input type="text" name="pape" value="" id="pape"></input>
+      <input type="text" name="pape" value="" id="pape"></input>
   <!--{{form.primeroApellido}}-->
 </div>
 
 <div>
   <label for="sapellido">Segundo apellido: </label>
   <!--{{form.segundoApellido}}-->
+  <input type="text" name="sape" value="" id="sape"></input>
 </div>
 
 </div>
@@ -122,6 +125,7 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
 
 <div>
   <label for="detail">Detalle: </label>
+  <input type="text" name="deta" value="" id="deta"></input>
    <!--{{form.detalles}}-->
 </div>
  
@@ -146,44 +150,10 @@ require(["dojox/grid/DataGrid","dojo/data/ItemFileWriteStore","dijit/form/Button
     Agregar Fila
   </button>
 
-        <button id="guardar" data-dojo-type="dijit/form/Button">
-            Guardar
-        </button>
+  <button id="guardar" data-dojo-type="dijit/form/Button">
+    Guardar
+  </button>
 
-<script type="text/javascript">
-
-$(document).ready(function()
-  {
-  $("#boton01").click(function () {
-  //saco el valor accediendo a un input de tipo text y name = nombre
-  //alert($('input:text[name=nombre]').val());
-  //saco el valor accediendo al id del input = nombre
-  //alert($("#numid").val());
-  var id = $("#numid").val();
-  $.ajax({
-    data:{'id':id},
-    url: '/guardar-pregunta/',
-    type: 'get',
-    //success: function(data){
-     //  console.log(data);
-    //}
-  });
-  //saco el valor accediendo al class del input = nombre   
-  //alert($(".nombre").val());
-  });
-});
-/*
-    $('button').on('click',trigger);
-
-    function trigger() {
-    //call displayform, passing td jQuery element
-    //if ($(":input[name='boton']").length>0){agregarFila();}
-    if($(this).attr('name') == 'boton' ){
-      var id 
-    }
-    }
-*/
-</script>
 
 </div>
 <div class="bajarq">
