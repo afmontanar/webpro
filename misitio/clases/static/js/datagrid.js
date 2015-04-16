@@ -122,11 +122,13 @@ onClick: function () {
             if(pape.value!=""){
               if(cel.value!=""){
                 if(dir.value!=""){
+                     alert(store.typeMap);
                      xhr.get({
                         // The URL of the request
                         //data:{'id':id},
                         url: '/guardar-pregunta/',
                         //type: 'get',
+
                         content: {
                             id: numid.value,
                             ti: comboBox.value,
@@ -136,7 +138,8 @@ onClick: function () {
                             sa: sape.value,
                             di: dir.value,
                             cl: cel.value,
-                            dt: deta.value
+                            dt: deta.value,
+                            st: store
                         },
                         // The success callback with result from server
                         load: function(newContent) {
@@ -203,4 +206,5 @@ store.newItem({
     col6: "col6-"
     });
 }}, "addRow");
+;
 });

@@ -2,7 +2,7 @@ import json
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
-from clases.models import Cliente
+from clases.models import Cliente, Chofer
 from django.template import RequestContext
 from django.db import IntegrityError
 
@@ -38,6 +38,7 @@ def guardar_pregunta(request):
 		di = request.GET['di']
 		cl = request.GET['cl']
 		dt = request.GET['dt']
+		print(request.GET['st'])
 		try:
 			r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
 			return HttpResponse(
@@ -57,3 +58,8 @@ def guardar_pregunta(request):
 			json.dumps({'respuestas': data, 'pregunta': id}),
 			content_type="application/json; charset=uft8"
 			)"""
+
+def guardar_chofer(request):
+	if request.is_ajax():
+		pregunta = request.GET['id']
+		print(pregunta)
