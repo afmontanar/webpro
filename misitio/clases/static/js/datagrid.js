@@ -138,8 +138,7 @@ onClick: function () {
                             sa: sape.value,
                             di: dir.value,
                             cl: cel.value,
-                            dt: deta.value,
-                            st: store
+                            dt: deta.value
                         },
                         // The success callback with result from server
                         load: function(newContent) {
