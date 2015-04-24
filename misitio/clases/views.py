@@ -72,6 +72,6 @@ def guardar_chofer(request):
 
 	return HttpResponse(
 			json.dumps([{"id":0,"name":"Andres","name1":"AL","name2":"Montgomery","name3":"Montgomery","name4":"Montgomery","name5":"Montgomery"},
-			{"id":1,"name":"montana","name1":"AK","name2":"Juneau","name3":"Montgomery","name5":"Montgomery"}]),
+			{"id":1,"name":"montana","name1":"AK","name2":"Juneau","name3":"Montgomery","name4":"Montgomery","name5":"Montgomery"}]),
 			content_type="application/json; charset=uft8"
 			)
