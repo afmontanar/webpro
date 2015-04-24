@@ -1,13 +1,29 @@
-require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
-function (lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
+require(['dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
+function (JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
 /*set up data store*/
+
+/*
+var storei = new JsonRest({
+   target: "/guardar_chofer/"
+});
+*/
+
+storei = new dojo.store.JsonRest({target:"/guardar_chofer/"});
+dataStore = new dojo.data.ObjectStore({objectStore: storei});
+
 var data = {
-items: []
+    items: []
 };
+
+/*
 var store = new ItemFileWriteStore({
 data: data
 });
-/*set up layout*/
+
+/*
+set up layout
+*/
+
 var layout = [
 [{
 'name': 'Identificacion',
@@ -41,13 +57,25 @@ editable: true
 editable: true
 }]
 ];
+
+var grid = new DataGrid({
+id: 'grid',
+store: dataStore,
+structure: [{name:"State Name", field:"name", width: "200px"},{name:"Abbreviation", field:"abbreviation", width: "200px"}]
+}); // make sure you have a target HTML element with this id
+
+
 /*create a new grid*/
+
+/*
 var grid = new DataGrid({
 id: 'grid',
 store: store,
 structure: layout,
 rowSelector: '20px'
 });
+*/
+
 /*append the new grid to the div*/
 grid.placeAt("gridDiv");
 /*Call startup() to render the grid*/
