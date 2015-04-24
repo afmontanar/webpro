@@ -61,7 +61,7 @@ editable: true
 var grid = new DataGrid({
 id: 'grid',
 store: dataStore,
-structure: [{name:"State Name", field:"name", width: "200px"},{name:"Abbreviation", field:"abbreviation", width: "200px"}]
+structure: [{name:"Identificacion", field:"name", width: "200px"},{name:"Nombres", field:"name1", width: "200px"},{name:"Apellidos", field:"name2", width: "200px"},{name:"Direccion", field:"name3", width: "200px"},{name:"Celular", field:"name4", width: "200px"},{name:"Detalle", field:"name5", width: "200px"}]
 }); // make sure you have a target HTML element with this id
 
 
