@@ -1,5 +1,5 @@
-require(['dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
-function (JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
+require(['dijit/DropDownMenu','dijit/MenuItem','dijit/Menu','dijit/PopupMenuBarItem','dijit/MenuBar','dijit/Dialog','dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
+function (DropDownMenu,MenuItem,Menu,PopupMenuBarItem,MenuBar,Dialog,JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
 /*set up data store*/
 
 /*
@@ -8,139 +8,7 @@ var storei = new JsonRest({
 });
 */
 
-storei = new dojo.store.JsonRest({target:"/guardar_chofer/"});
-dataStore = new dojo.data.ObjectStore({objectStore: storei});
 
-var data = {
-    items: []
-};
-
-/*
-var store = new ItemFileWriteStore({
-data: data
-});
-
-/*
-set up layout
-*/
-
-var layout = [
-[{
-'name': 'Identificacion',
-'field': 'col1',
-'width': '100px',
-editable: true
-}, {
-'name': 'Nombres',
-'field': 'col2',
-'width': '100px',
-editable: true
-}, {
-'name': 'Apellidos',
-'field': 'col3',
-'width': '200px',
-editable: true
-}, {
-'name': 'Direccion',
-'field': 'col4',
-'width': '150px',
-editable: true
-}, {
-'name': 'Celular',
-'field': 'col5',
-'width': '150px',
-editable: true
-}, {
-'name': 'Detalle',
-'field': 'col6',
-'width': '150px',
-editable: true
-}]
-];
-
-var grid = new DataGrid({
-id: 'grid',
-store: dataStore,
-structure: [{name:"Identificacion", field:"name", width: "200px"},{name:"Nombres", field:"name1", width: "200px"},{name:"Apellidos", field:"name2", width: "200px"},{name:"Direccion", field:"name3", width: "200px"},{name:"Celular", field:"name4", width: "200px"},{name:"Detalle", field:"name5", width: "200px"}]
-}); // make sure you have a target HTML element with this id
-
-
-/*create a new grid*/
-
-/*
-var grid = new DataGrid({
-id: 'grid',
-store: store,
-structure: layout,
-rowSelector: '20px'
-});
-*/
-
-/*append the new grid to the div*/
-grid.placeAt("gridDiv");
-/*Call startup() to render the grid*/
-//grid.startup();
-
-var stateStore = new Memory({
-        data: [
-            {name:"CC", id:"CC"},
-            {name:"CE", id:"CE"},
-            {name:"TI", id:"TI"}
-        ]
-    });
-
-    var comboBox = new ComboBox({
-        id: "stateSelect",
-        name: "state",
-        value: "",
-        store: stateStore,
-        searchAttr: "name"
-    }, "stateSelect");
-
-
-
-
-var deta = new ValidationTextBox({
-        required: false,
-        invalidMessage: "Este campo es necesario"
-    }, "deta");
-
-
-var sape = new ValidationTextBox({
-        required: false,
-        invalidMessage: "Este campo es necesario"
-    }, "sape");
-
-var snom = new ValidationTextBox({
-        required: false,
-        invalidMessage: "Este campo es necesario"
-    }, "snom");
-
-
-var numid = new ValidationTextBox({
-        required: true,
-        invalidMessage: "Este campo es necesario"
-    }, "numid");
-
-var pnom = new ValidationTextBox({
-        required: true,
-        invalidMessage: "Este campo es necesario"
-    }, "pnom");
-
-var pape = new ValidationTextBox({
-        required: true,
-        invalidMessage: "Este campo es necesario"
-    }, "pape");
-
-var cel = new ValidationTextBox({
-        required: true,
-        invalidMessage: "Este campo es necesario"
-    }, "cel");
-
-var dir = new ValidationTextBox({
-        required: true,
-        invalidMessage: "Este campo es necesario"
-    }, "dir");
 
 var button = new Button({
 onClick: function () {
@@ -233,5 +101,143 @@ store.newItem({
     col6: "col6-"
     });
 }}, "addRow");
-;
+
+
+myDialog = new Dialog({
+        title: "Cliente",
+        content: "<form > <div id='flotante'><div class='izquierdad'><legend  style='font-weight: bold;'>Datos del cliente (Dueño del vehiculo)</legend><div class='izquierda'><div><label for='tipi'>Tipo de identificacion: </label><input id='stateSelect'></div><div><label for='pnom'>Primer nombre: </label><input type='text' name='pnom' value='' id='pnom'></input></div><div><label for='snom'>Segundo nombre: </label><input type='text' name='snom' value='' id='snom'></input></div><div><label for='papellido'>Primer apellido: </label><input type='text' name='pape' value='' id='pape'></input></div><div><label for='sapellido'>Segundo apellido: </label><input type='text' name='sape' value='' id='sape'></input></div></div><div class='derecha'><div><label for='nide'>Numero Id </label><input type='text' name='numid' value='' id='numid'></input></div><div><label for='dir'>Direccion: </label><input type='text' name='dir' value='' id='dir'></input></div><div><label for='detail'>Detalle: </label><input type='text' name='deta' value='' id='deta'></input></div><div><label for='cel'>Celular: </label><input type='text' name='cel' value='' id='cel'></input></div></div></div><div class='espacio'></div><div class='grilla'><div class='bajar' ><button id='addRow' data-dojo-type='dijit/form/Button' >Agregar Fila</button><button id='guardar' data-dojo-type='dijit/form/Button'>Guardar</button></div><div class='bajarq'><div id='gridDiv'></div></div></div></div></form>",
+        style: "width: 1100px;"
+    });
+
+ var pMenuBar = new MenuBar({});
+
+    var pSubMenu = new DropDownMenu({});
+    pSubMenu.addChild(new MenuItem({
+        label: "Cliente",
+        onClick:function(){myDialog.show();}
+    }));
+    pSubMenu.addChild(new MenuItem({
+        label: "Historia de vehiculo"
+    }));
+
+    pSubMenu.addChild(new MenuItem({
+        label: "Busqueda historial de vehiculos"
+    }));
+    
+    pMenuBar.addChild(new PopupMenuBarItem({
+        label: "Inicio",
+        popup: pSubMenu
+    }));
+
+   
+
+    pMenuBar.placeAt("wrapper");
+    pMenuBar.startup();
+
+
+
+
+
+storei = new dojo.store.JsonRest({target:"/guardar_chofer/"});
+dataStore = new dojo.data.ObjectStore({objectStore: storei});
+
+
+
+/*
+var store = new ItemFileWriteStore({
+data: data
+});
+
+/*
+set up layout
+*/
+
+
+
+var grid = new DataGrid({
+id: 'grid',
+store: dataStore,
+structure: [{name:"Identificacion", field:"name", width: "200px"},{name:"Nombres", field:"name1", width: "200px"},{name:"Apellidos", field:"name2", width: "200px"},{name:"Direccion", field:"name3", width: "200px"},{name:"Celular", field:"name4", width: "200px"},{name:"Detalle", field:"name5", width: "200px"}]
+}); // make sure you have a target HTML element with this id
+
+
+/*create a new grid*/
+
+/*
+var grid = new DataGrid({
+id: 'grid',
+store: store,
+structure: layout,
+rowSelector: '20px'
+});
+*/
+
+/*append the new grid to the div*/
+grid.placeAt("gridDiv");
+/*Call startup() to render the grid*/
+//grid.startup();
+
+var stateStore = new Memory({
+        data: [
+            {name:"CC", id:"CC"},
+            {name:"CE", id:"CE"},
+            {name:"TI", id:"TI"}
+        ]
+    });
+
+    var comboBox = new ComboBox({
+        id: "stateSelect",
+        name: "state",
+        value: "",
+        store: stateStore,
+        searchAttr: "name"
+    }, "stateSelect");
+
+
+
+
+var deta = new ValidationTextBox({
+        required: false,
+        invalidMessage: "Este campo es necesario"
+    }, "deta");
+
+
+var sape = new ValidationTextBox({
+        required: false,
+        invalidMessage: "Este campo es necesario"
+    }, "sape");
+
+var snom = new ValidationTextBox({
+        required: false,
+        invalidMessage: "Este campo es necesario"
+    }, "snom");
+
+
+var numid = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "numid");
+
+var pnom = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "pnom");
+
+var pape = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "pape");
+
+var cel = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "cel");
+
+var dir = new ValidationTextBox({
+        required: true,
+        invalidMessage: "Este campo es necesario"
+    }, "dir");
+
+
+
 });
