@@ -55,7 +55,6 @@ dataStore = new dojo.data.ObjectStore({objectStore: storei});
 */
    /*set up data store*/
     var data = {
-      identifier: "id",
       items: []
     }
 var store = new ItemFileWriteStore({data: data});
