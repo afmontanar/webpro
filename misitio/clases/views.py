@@ -82,13 +82,14 @@ def guardar_pregunta(request):
 							myList[b]+=st[w]
 						b+=1
 		"""
-		print(myList[0])
 		#for two colums print(st[12:-214]):
 		try:
 			r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
-			for x in xrange(1,2):
-				o = Chofer.objects.create(cliente_id=pregunta,Identificacion=myList[0],primeroNombre=myList[2],segunNombre=myList[2],primeroApellido=myList[2],segundoApellido=myList[2],direccion=myList[2],celular=myList[2],detalle=myList[2])
-			
+			h=len(myList)/12
+			j=0
+			for x in xrange(1,h):
+				o = Chofer.objects.create(cliente_id=pregunta,Identificacion=myList[j],primeroNombre=myList[j],primeroApellido=myList[j],direccion=myList[j],celular=myList[j],detalle=myList[j])
+				j=j+10
 			#o = Chofer.objects.create(cliente=pregunta,Identificacion=,primeroNombre=,segunNombre=,primeroApellido=,segundoApellido=,direccion=,celular=,detalle=)
 			return HttpResponse(
 			json.dumps({'respuesta': 'si'}),

@@ -61,7 +61,7 @@ set up layout
 var grid = new DataGrid({
 id: 'grid',
 store: store,
-structure: [{name:"Identificacion", field:"name", width: "200px"},{name:"Nombres", field:"name1", width: "200px"},{name:"Apellidos", field:"name2", width: "200px"},{name:"Direccion", field:"name3", width: "200px"},{name:"Celular", field:"name4", width: "200px"},{name:"Detalle", field:"name5", width: "200px"}]
+structure: [{name:"Identificacion", field:"name", width: "200px",editable:true},{name:"Nombres", field:"name1", width: "200px",editable:true},{name:"Apellidos", field:"name2", width: "200px",editable:true},{name:"Direccion", field:"name3", width: "200px",editable:true},{name:"Celular", field:"name4", width: "200px",editable:true},{name:"Detalle", field:"name5", width: "200px",editable:true}]
 }); // make sure you have a target HTML element with this id
 
 
@@ -122,7 +122,7 @@ var snom = new ValidationTextBox({
 var numid = new ValidationTextBox({
         required: true,
         invalidMessage: "Este campo es necesario"
-    }, "numid");myList[2]
+    }, "numid");
 
 var pnom = new ValidationTextBox({
         required: true,
