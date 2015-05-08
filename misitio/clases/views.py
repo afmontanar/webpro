@@ -18,6 +18,9 @@ class ClienteForm(ModelForm):
 def clientes(request):
 	return render_to_response('cliente.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
 
+def clienteu(request):
+	return render_to_response('untitled.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
+
 """
 def clientes(request, template_name='cliente.html'):
 	form = ClienteForm(request.POST or None)
@@ -27,6 +30,7 @@ def clientes(request, template_name='cliente.html'):
 		form = ClienteForm()
 	return render(request, template_name, {'form':form})
 """
+
 def guardar_pregunta(request):
 	if request.is_ajax():
 		pregunta = request.GET['id']
@@ -38,9 +42,54 @@ def guardar_pregunta(request):
 		di = request.GET['di']
 		cl = request.GET['cl']
 		dt = request.GET['dt']
-		print(request.GET['st'])
+		st = request.GET['st']
+		#myList=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
+		myList=[]
+		#   for x in st:
+		#	print(x)
+		myList.append("")  
+		a=0
+		b=0
+		
+		while (a<len(st)):		
+			if(":" == st[a]):
+				a += 1
+				while (a<len(st)):
+					if('"' == st[a]):
+						a += 1
+						while (a<len(st)):
+							if ('"' == st[a]):
+								a += 1
+								b += 1
+								myList.append("")
+								break
+							myList[b]+=st[a]
+							a += 1
+					a += 1
+			a += 1
+			
+		"""
+		for i in range (0, len(st)):
+			print(i)
+			if(":" == st[i]):
+				print('Entro')
+				for s in range (i, len(st)):
+					if('"' == st[s]):
+						for w in range (s, len(st)):
+							if ('"' == st[w]):
+								i=w
+								break
+							myList[b]+=st[w]
+						b+=1
+		"""
+		print(myList[0])
+		#for two colums print(st[12:-214]):
 		try:
 			r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
+			for x in xrange(1,2):
+				o = Chofer.objects.create(cliente_id=pregunta,Identificacion=myList[0],primeroNombre=myList[2],segunNombre=myList[2],primeroApellido=myList[2],segundoApellido=myList[2],direccion=myList[2],celular=myList[2],detalle=myList[2])
+			
+			#o = Chofer.objects.create(cliente=pregunta,Identificacion=,primeroNombre=,segunNombre=,primeroApellido=,segundoApellido=,direccion=,celular=,detalle=)
 			return HttpResponse(
 			json.dumps({'respuesta': 'si'}),
 			content_type="application/json; charset=uft8"
