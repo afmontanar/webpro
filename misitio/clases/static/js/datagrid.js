@@ -186,6 +186,9 @@ onClick: function () {
                                  dir.reset();
                                  cel.reset();
                                  deta.reset();
+    
+                                 var storew = new ItemFileWriteStore({data: data});                        
+                                 grid.setStore(storew);
                              }else{
                                 alert("Este cliente ya existe");
                                 numid.reset();

@@ -85,9 +85,11 @@ def guardar_pregunta(request):
 		#for two colums print(st[12:-214]):
 		try:
 			r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
+			print(len(myList))
 			h=len(myList)/12
+			print(h)
 			j=0
-			for x in xrange(1,h):
+			for x in xrange(0,h):
 				o = Chofer.objects.create(cliente_id=pregunta,Identificacion=myList[j],primeroNombre=myList[j],primeroApellido=myList[j],direccion=myList[j],celular=myList[j],detalle=myList[j])
 				j=j+10
 			#o = Chofer.objects.create(cliente=pregunta,Identificacion=,primeroNombre=,segunNombre=,primeroApellido=,segundoApellido=,direccion=,celular=,detalle=)
