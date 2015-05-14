@@ -16,7 +16,8 @@ var pMenuBar = new MenuBar({});
         onClick:function(){myDialog.show();}
     }));
     pSubMenu.addChild(new MenuItem({
-        label: "Historia de vehiculo"
+        label: "Historia de vehiculo",
+        onClick:function(){historiaVehiculo.show();}
     }));
 
     pSubMenu.addChild(new MenuItem({
@@ -35,6 +36,16 @@ myDialog = new Dialog({
         content: "<form><div id='flotante'><div class='izquierdad'><legend  style='font-weight: bold;'>Datos del cliente (Dueño del vehiculo)</legend><div class='izquierda'><div><label for='tipi'>Tipo de identificacion: </label><input id='stateSelect'></div><div><label for='pnom'>Primer nombre: </label><input type='text' name='pnom' value='' id='pnom'></input></div><div><label for='snom'>Segundo nombre: </label><input type='text' name='snom' value='' id='snom'></input></div><div><label for='papellido'>Primer apellido: </label><input type='text' name='pape' value='' id='pape'></input></div><div><label for='sapellido'>Segundo apellido: </label><input type='text' name='sape' value='' id='sape'></input></div></div><div class='derecha'><div><label for='nide'>Numero Id </label><input type='text' name='numid' value='' id='numid'></input></div><div><label for='dir'>Direccion: </label><input type='text' name='dir' value='' id='dir'></input></div><div><label for='detail'>Detalle: </label><input type='text' name='deta' value='' id='deta'></input></div><div><label for='cel'>Celular: </label><input type='text' name='cel' value='' id='cel'></input></div></div></div><div class='espacio'></div><div class='grilla'><div class='bajar' ><button id='addRow' type='button' >Agregar Fila</button><button id='deleteRow' type='button' >Eliminar Fila</button><button id='guardar' type='button'>Guardar</button></div><div class='bajarq'><div id='gridDiv'></div></div></div></div></form>",
         style: "width: 1100px;"
     });
+
+historiaVehiculo = new Dialog({
+        title: "Historia de vehiculo",
+        content: "<form><div class='derechahhhhhhh'><div><input type='button' name='qgua' value='Guardar' id='qgua'></input></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><input type='button' name='qbdu' value='...' id='qdue'></input></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espacio'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivh'></div><div class='agrrow'><div><button type='button' name='agr' value='Agregar registro' id='addRow'></button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='tot' name='tot' value='' id='tot' ></input></div></div></form>",
+        style: "width: 1200px;"
+    });
+
+
+
+
 
 /*
 storei = new dojo.store.JsonRest({target:"/guardar_chofer/"});
@@ -82,6 +93,22 @@ rowSelector: '20px'
 grid.placeAt("gridDiv");
 /*Call startup() to render the grid*/
 //grid.startup();
+
+
+var datax = {
+      items: []
+    }
+
+var storex = new ItemFileWriteStore({data: datax});
+
+
+var gridh = new DataGrid({
+id: 'gridh',
+store: storex,
+structure: [{name:"Cantidad", field:"name", width: "200px",editable:true},{name:"Marca", field:"name1", width: "200px",editable:true},{name:"Referencia", field:"name2", width: "200px",editable:true},{name:"Detalle", field:"name3", width: "200px",editable:true},{name:"Rueda", field:"name4", width: "200px",editable:true},{name:"Valor unitario", field:"name5", width: "200px",editable:true},{name:"Valor total", field:"name5", width: "200px",editable:true},{name:"Valor con descuento", field:"name6", width: "200px",editable:true}]
+}); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
+
+gridh.placeAt("gridDivh");
 
 var stateStore = new Memory({
         data: [
@@ -244,22 +271,6 @@ store.newItem({
     });
 }},"addRow").startup();
 
-var buttoe = new Button({
-onClick: function () {
- var items = grid.selection.getSelected();
-        if(items.length){
-            // Iterate through the list of selected items.
-            // The current item is available in the variable
-            // "selectedItem" within the following function:
-            dojo.forEach(items, function(selectedItem){
-                if(selectedItem !== null){
-                    // Delete the item from the data store:
-                    store.deleteItem(selectedItem);
-                } // end if
-            }); // end forEach
-        } // end if
-}},"deleteRow").startup();
-
 
 function updateAll(){
             // Callback for processing a returned list of items.
@@ -325,4 +336,146 @@ function covertJson(store, item){
              //
             return json.toJson(js, true);
         };
+
+
+        //Interfaz de historia
+      var stateStorem = new Memory({
+        data: [
+            {name:"00", id:"00"},
+            {name:"01", id:"01"},
+            {name:"02", id:"02"},
+            {name:"03", id:"03"},
+            {name:"04", id:"04"},
+            {name:"05", id:"05"},
+            {name:"06", id:"06"},
+            {name:"07", id:"07"},
+            {name:"02", id:"02"},
+            {name:"08", id:"08"},
+            {name:"09", id:"09"},
+            {name:"10", id:"10"},
+            {name:"11", id:"11"},
+            {name:"12", id:"12"},
+            {name:"13", id:"13"},
+            {name:"14", id:"14"},
+            {name:"15", id:"15"},
+            {name:"16", id:"16"},
+            {name:"17", id:"17"},
+            {name:"18", id:"18"},
+            {name:"19", id:"19"},
+            {name:"20", id:"20"},
+            {name:"21", id:"21"},
+            {name:"22", id:"22"},         
+            {name:"23", id:"23"},
+            {name:"24", id:"24"}
+          ]
+      });
+
+      var hora = new ComboBox({
+          id: "hora",
+          name: "hora",
+          value: "",
+          editable: false,
+          store: stateStorem,
+          searchAttr: "name"
+      }, "hora");
+
+      var stateStoreh = new Memory({
+        data: [
+            {name:"00", id:"00"},
+            {name:"01", id:"01"},
+            {name:"02", id:"02"},
+            {name:"03", id:"03"},
+            {name:"04", id:"04"},
+            {name:"05", id:"05"},
+            {name:"06", id:"06"},
+            {name:"07", id:"07"},
+            {name:"02", id:"02"},
+            {name:"08", id:"08"},
+            {name:"09", id:"09"},
+            {name:"10", id:"10"},
+            {name:"11", id:"11"},
+            {name:"12", id:"12"},
+            {name:"13", id:"13"},
+            {name:"14", id:"14"},
+            {name:"15", id:"15"},
+            {name:"16", id:"16"},
+            {name:"17", id:"17"},
+            {name:"18", id:"18"},
+            {name:"19", id:"19"},
+            {name:"20", id:"20"},
+            {name:"21", id:"21"},
+            {name:"22", id:"22"},         
+            {name:"23", id:"23"},
+            {name:"24", id:"24"},
+            {name:"25", id:"25"},
+            {name:"26", id:"26"},
+            {name:"27", id:"27"},
+            {name:"28", id:"28"},
+            {name:"29", id:"29"},
+            {name:"30", id:"30"},
+            {name:"31", id:"31"},
+            {name:"32", id:"32"},
+            {name:"33", id:"33"},
+            {name:"34", id:"34"},
+            {name:"35", id:"35"},
+            {name:"36", id:"36"},
+            {name:"37", id:"37"},
+            {name:"38", id:"38"},
+            {name:"39", id:"39"},
+            {name:"40", id:"40"},
+            {name:"41", id:"41"},
+            {name:"42", id:"42"},
+            {name:"43", id:"43"},
+            {name:"44", id:"44"},
+            {name:"45", id:"45"},
+            {name:"46", id:"46"},
+            {name:"47", id:"47"},
+            {name:"48", id:"48"},
+            {name:"49", id:"49"},         
+            {name:"50", id:"50"},
+            {name:"51", id:"51"},
+            {name:"52", id:"52"},
+            {name:"53", id:"53"},
+            {name:"54", id:"54"},
+            {name:"55", id:"55"},
+            {name:"56", id:"56"},
+            {name:"57", id:"57"},         
+            {name:"58", id:"58"},
+            {name:"59", id:"59"},
+            {name:"60", id:"60"},
+          ]
+      });
+
+      var minuto = new ComboBox({
+          id: "minuto",
+          name: "minuto",
+          value: "",
+          editable: false,
+          store: stateStoreh,
+          searchAttr: "name"
+      }, "minuto");
+
+      var segundo = new ComboBox({
+          id: "segundo",
+          name: "segundo",
+          value: "",
+          editable: false,
+          store: stateStoreh,
+          searchAttr: "name"
+      }, "segundo");
+
+      var buttonh = new Button({
+        onClick: function () {
+        gridh.store.newItem({
+            name: "",
+            name1: "",
+            name2: "",
+            name3: "",
+            name4: "",
+            name5: "",
+            name6: ""
+            });
+        }},"addRowh").startup();
+
+
 });

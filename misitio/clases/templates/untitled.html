@@ -138,18 +138,99 @@ require(["dojo/ready", "dojo/on", "dojo/_base/json", "dojo/parser", "dojo/data/I
     </script>
 </head>
 <body class="claro">
-    <div data-dojo-type="dojo/data/ItemFileWriteStore" data-dojo-props="data:geoData2" data-dojo-id="geoStore2"></div>
-<b>Set the population to assign to all items of type city</b><br>
-<div data-dojo-type="dijit/form/NumberSpinner" data-dojo-id="spinner2" value="10000"></div><br><br>
-<div data-dojo-type="dijit/form/Button" data-dojo-id="button3">Update all geography items of type city with a new population!</div><br><br>
-<div id="grid2"
-    style="width: 400px; height: 300px;"
-    data-dojo-type="dojox.grid.DataGrid"
-    data-dojo-props="store:geoStore2,
-    structure:layoutGeo2,
-    query:{},
-    queryOptions:{'deep':true},
-    rowsPerPage:40">
+   <form > 
+<div id="flotante">
+<div class="izquierdad">
+<legend  style="font-weight: bold;">Datos del cliente (Dueño del vehiculo)</legend>
+<div class="izquierda">
+
+<div>
+<label for="tipi">Tipo de identificacion: </label>
+ 
+<!--<input data-dojo-type="dijit/form/ValidationTextBox" title="Tipo de identificacion:" name="tipi" data-dojo-props="required: true"></input>-->
+<input id="stateSelect">
 </div>
+
+<div>
+  <label for="pnom">Primer nombre: </label>
+    <!--{{form.primeroNombre}}-->
+    <input type="text" name="pnom" value="" id="pnom"></input>
+</div>
+
+<div>
+  <label for="snom">Segundo nombre: </label>
+      <!--{{form.segunNombre}}-->
+      <input type="text" name="snom" value="" id="snom"></input>
+</div>
+ 
+<div>
+  <label for="papellido">Primer apellido: </label>
+      <input type="text" name="pape" value="" id="pape"></input>
+  <!--{{form.primeroApellido}}-->
+</div>
+
+<div>
+  <label for="sapellido">Segundo apellido: </label>
+  <!--{{form.segundoApellido}}-->
+  <input type="text" name="sape" value="" id="sape"></input>
+</div>
+
+</div>
+
+
+
+<div class="derecha">
+<div>
+  <label for="nide">Numero Id </label>
+  <!--{{form.numeroId}}-->
+  <input type="text" name="numid" value="" id="numid"></input>
+</div>
+
+<div>
+  <label for="dir">Direccion: </label>
+    <input type="text" name="dir" value="" id="dir"></input>
+  <!--{{form.direccion}}-->
+</div>
+
+<div>
+  <label for="detail">Detalle: </label>
+  <input type="text" name="deta" value="" id="deta"></input>
+   <!--{{form.detalles}}-->
+</div>
+ 
+<div>
+  <label for="cel">Celular: </label>
+   <input type="text" name="cel" value="" id="cel"></input>
+  <!--{{form.celular}}-->
+</div>
+</div>
+</div>
+
+<div class="espacio">
+
+</div>
+
+
+
+<div class="grilla">
+<div class="bajar" >
+
+  <button id="addRow" data-dojo-type="dijit/form/Button" >
+    Agregar Fila
+  </button>
+
+  <button id="guardar" data-dojo-type="dijit/form/Button">
+    Guardar
+  </button>
+
+
+</div>
+<div class="bajarq">
+<div id="gridDiv" ></div>
+</div>
+</div>
+
+</div>
+</form>
 </body>
 </html>
