@@ -1,5 +1,5 @@
-require(['dojo/_base/json','dijit/DropDownMenu','dijit/MenuItem','dijit/Menu','dijit/PopupMenuBarItem','dijit/MenuBar','dijit/Dialog','dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
-function(json,DropDownMenu,MenuItem,Menu,PopupMenuBarItem,MenuBar,Dialog,JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
+require(['dojo/_base/array','dojo/_base/json','dijit/DropDownMenu','dijit/MenuItem','dijit/Menu','dijit/PopupMenuBarItem','dijit/MenuBar','dijit/Dialog','dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
+function(array,json,DropDownMenu,MenuItem,Menu,PopupMenuBarItem,MenuBar,Dialog,JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
 /*set up data store*/
 
 /*
@@ -33,82 +33,41 @@ var pMenuBar = new MenuBar({});
 
 myDialog = new Dialog({
         title: "Cliente",
+        //content: "<form><div id='flotante'><div class='izquierdad'><legend  style='font-weight: bold;'>Datos del cliente (Dueño del vehiculo)</legend><div class='izquierda'><div><label for='tipi'>Tipo de identificacion: </label><input id='stateSelect'></div><div><label for='pnom'>Primer nombre: </label><input type='text' name='pnom' value='' id='pnom'></input></div><div><label for='snom'>Segundo nombre: </label><input type='text' name='snom' value='' id='snom'></input></div><div><label for='papellido'>Primer apellido: </label><input type='text' name='pape' value='' id='pape'></input></div><div><label for='sapellido'>Segundo apellido: </label><input type='text' name='sape' value='' id='sape'></input></div></div><div class='derecha'><div><label for='nide'>Numero Id </label><input type='text' name='numid' value='' id='numid'></input></div><div><label for='dir'>Direccion: </label><input type='text' name='dir' value='' id='dir'></input></div><div><label for='detail'>Detalle: </label><input type='text' name='deta' value='' id='deta'></input></div><div><label for='cel'>Celular: </label><input type='text' name='cel' value='' id='cel'></input></div></div></div><div class='espacio'></div><div class='grilla'><div class='bajar' ><button id='addRow' type='button' >Agregar Fila</button><button id='deleteRow' type='button' >Eliminar Fila</button><button id='guardar' type='button'>Guardar</button></div><div class='bajarq'><div id='gridDiv'></div></div></div></div></form>",
         content: "<form><div id='flotante'><div class='izquierdad'><legend  style='font-weight: bold;'>Datos del cliente (Dueño del vehiculo)</legend><div class='izquierda'><div><label for='tipi'>Tipo de identificacion: </label><input id='stateSelect'></div><div><label for='pnom'>Primer nombre: </label><input type='text' name='pnom' value='' id='pnom'></input></div><div><label for='snom'>Segundo nombre: </label><input type='text' name='snom' value='' id='snom'></input></div><div><label for='papellido'>Primer apellido: </label><input type='text' name='pape' value='' id='pape'></input></div><div><label for='sapellido'>Segundo apellido: </label><input type='text' name='sape' value='' id='sape'></input></div></div><div class='derecha'><div><label for='nide'>Numero Id </label><input type='text' name='numid' value='' id='numid'></input></div><div><label for='dir'>Direccion: </label><input type='text' name='dir' value='' id='dir'></input></div><div><label for='detail'>Detalle: </label><input type='text' name='deta' value='' id='deta'></input></div><div><label for='cel'>Celular: </label><input type='text' name='cel' value='' id='cel'></input></div></div></div><div class='espacio'></div><div class='grilla'><div class='bajar' ><button id='addRow' type='button' >Agregar Fila</button><button id='deleteRow' type='button' >Eliminar Fila</button><button id='guardar' type='button'>Guardar</button></div><div class='bajarq'><div id='gridDiv'></div></div></div></div></form>",
+         
         style: "width: 1100px;"
     });
 
-historiaVehiculo = new Dialog({
-        title: "Historia de vehiculo",
-        content: "<form><div class='derechahhhhhhh'><div><input type='button' name='qgua' value='Guardar' id='qgua'></input></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><input type='button' name='qbdu' value='...' id='qdue'></input></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espacio'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='tot' name='tot' value='' id='tot' ></input></div></div></form>",
-        style: "width: 1200px;"
-    });
-
-
-
+ 
+var data = {
+      items: []
+    }
+var store = new ItemFileWriteStore({data: data});
+ 
+ var grid = new DataGrid({
+ id: 'grid',
+ store: store,
+ structure: [{name:"Identificacion", field:"name", width: "200px",editable:true},{name:"Nombres", field:"name1", width: "200px",editable:true},{name:"Apellidos", field:"name2", width: "200px",editable:true},{name:"Direccion", field:"name3", width: "200px",editable:true},{name:"Celular", field:"name4", width: "200px",editable:true},{name:"Detalle", field:"name5", width: "200px",editable:true}]
+ }); // make sure you have a target HTML element with this id
+ 
+ 
+ grid.placeAt("gridDiv");
 
 
 /*
 storei = new dojo.store.JsonRest({target:"/guardar_chofer/"});
 dataStore = new dojo.data.ObjectStore({objectStore: storei});
 */
-   /*set up data store*/
-    var data = {
-      items: []
-    }
-    var store = new ItemFileWriteStore({data: data});
-
-
-/*
-var store = new ItemFileWriteStore({
-data: data
-});
-
-/*
-set up layout
-*/
-
-
-
-var grid = new DataGrid({
-id: 'grid',
-store: store,
-structure: [{name:"Identificacion", field:"name", width: "200px",editable:true},{name:"Nombres", field:"name1", width: "200px",editable:true},{name:"Apellidos", field:"name2", width: "200px",editable:true},{name:"Direccion", field:"name3", width: "200px",editable:true},{name:"Celular", field:"name4", width: "200px",editable:true},{name:"Detalle", field:"name5", width: "200px",editable:true}]
-}); // make sure you have a target HTML element with this id
-
-
-/*create a new grid*/
-
-/*
-var grid = new DataGrid({
-id: 'grid',
-store: store,
-structure: layout,
-rowSelector: '20px'
-});
-*/
-
-
-
-/*append the new grid to the div*/
-grid.placeAt("gridDiv");
 /*Call startup() to render the grid*/
 //grid.startup();
 
 
-var datax = {
-      items: []
-    }
 
-var storex = new ItemFileWriteStore({data: datax});
+   /*set up data store*/
 
 
-var gridh = new DataGrid({
-id: 'gridh',
-store: storex,
-structure: [{name:"Cantidad", field:"name", width: "200px",editable:true},{name:"Marca", field:"name1", width: "200px",editable:true},{name:"Referencia", field:"name2", width: "200px",editable:true},{name:"Detalle", field:"name3", width: "200px",editable:true},{name:"Rueda", field:"name4", width: "200px",editable:true},{name:"Valor unitario", field:"name5", width: "200px",editable:true},{name:"Valor total", field:"name5", width: "200px",editable:true},{name:"Valor con descuento", field:"name6", width: "200px",editable:true}]
-}); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
 
-gridh.placeAt("gridDivh");
 
 var stateStore = new Memory({
         data: [
@@ -258,7 +217,6 @@ onClick: function () {
 }
 },"guardar").startup();
 
-
 var button = new Button({
 onClick: function () {
 store.newItem({
@@ -271,6 +229,21 @@ store.newItem({
     });
 }},"addRow").startup();
 
+var buttoe = new Button({
+onClick: function () {
+var items = grid.selection.getSelected();
+        if(items.length){
+            // Iterate through the list of selected items.
+            // The current item is available in the variable
+            // "selectedItem" within the following function:
+            dojo.forEach(items, function(selectedItem){
+                if(selectedItem !== null){
+                    // Delete the item from the data store:
+                    store.deleteItem(selectedItem);
+                } // end if
+            }); // end forEach
+        } // end if
+}},"deleteRow").startup();
 
 function updateAll(){
             // Callback for processing a returned list of items.
@@ -337,6 +310,28 @@ function covertJson(store, item){
             return json.toJson(js, true);
         };
 
+
+
+historiaVehiculo = new Dialog({
+        title: "Historia de vehiculo",
+        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><input type='button' name='qbdu' value='...' id='qdue'></input></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='tot' name='tot' value='' id='tot' ></input></div></div></form>",
+        style: "width: 1200px;"
+    });
+
+var datax = {
+      items: []
+}
+
+var storex = new ItemFileWriteStore({data: datax});
+
+
+var gridh = new DataGrid({
+id: 'gridh',
+store: storex,
+structure: [{name:"Cantidad", field:"nameh", width: "200px",editable:true},{name:"Marca", field:"nameh1", width: "200px",editable:true},{name:"Referencia", field:"nameh2", width: "200px",editable:true},{name:"Detalle", field:"nameh3", width: "200px",editable:true},{name:"Rueda", field:"nameh4", width: "200px",editable:true},{name:"Valor unitario", field:"nameh5", width: "200px",editable:true},{name:"Valor total", field:"nameh5", width: "200px",editable:true},{name:"Valor con descuento", field:"nameh6", width: "200px",editable:true}]
+}); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
+
+gridh.placeAt("gridDivhh");
 
         //Interfaz de historia
       var stateStorem = new Memory({
@@ -468,15 +463,42 @@ function covertJson(store, item){
         onClick: function () {
         // alert("Se va a insertar un nuevo registro")
         storex.newItem({
-            name: "",
-            name1: "",
-            name2: "",
-            name3: "",
-            name4: "",
-            name5: "",
-            name6: ""
+            nameh: "",
+            nameh1: "",
+            nameh2: "",
+            nameh3: "",
+            nameh4: "",
+            nameh5: "",
+            nameh6: ""
             });
         }},"addRowh").startup();
 
+       var buttonz = new Button({
+        onClick: function () {
+        // alert("Se va a insertar un nuevo registro")
+        var items = gridh.selection.getSelected();
+        if(items.length) {
+            /* Iterate through the list of selected items.
+            The current item is available in the variable
+            'selectedItem' within the following function: */
+            array.forEach(items, function(selectedItem){
+                if(selectedItem !== null){
+                    /* Iterate through the list of attributes of each item.
+                    The current attribute is available in the variable
+                    'attribute' within the following function: */
+                    array.forEach(storex.getAttributes(selectedItem), function(attribute){
+                        /* Get the value of the current attribute:*/
+                        var value = storex.getValues(selectedItem, attribute);
+                        /* Now, you can do something with this attribute/value pair.
+                        Our short example shows the attribute together
+                        with the value in an alert box, but we are sure, that
+                        you'll find a more ambitious usage in your own code:*/
+                        alert('attribute: ' + attribute + ', value: ' + value);
+                    }); /* end forEach */
+                } /* end if */
+            }); /* end forEach */
+        } /* end if */
+        }},"guardarh").startup();
 
+        
 });

@@ -19,7 +19,7 @@ def clientes(request):
 	return render_to_response('cliente.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
 
 def clienteu(request):
-	return render_to_response('untitled.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
+	return render_to_response('eventgrilla.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
 
 """
 def clientes(request, template_name='cliente.html'):
