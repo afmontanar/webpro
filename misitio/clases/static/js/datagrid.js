@@ -314,9 +314,11 @@ function covertJson(store, item){
 
 historiaVehiculo = new Dialog({
         title: "Historia de vehiculo",
-        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><input type='button' name='qbdu' value='...' id='qdue'></input></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='tot' name='tot' value='' id='tot' ></input></div></div></form>",
+        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><input type='button' name='qbdu' value='...' id='qdue'></input></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
         style: "width: 1200px;"
     });
+
+
 
 var datax = {
       items: []
@@ -328,10 +330,13 @@ var storex = new ItemFileWriteStore({data: datax});
 var gridh = new DataGrid({
 id: 'gridh',
 store: storex,
-structure: [{name:"Cantidad", field:"nameh", width: "200px",editable:true},{name:"Marca", field:"nameh1", width: "200px",editable:true},{name:"Referencia", field:"nameh2", width: "200px",editable:true},{name:"Detalle", field:"nameh3", width: "200px",editable:true},{name:"Rueda", field:"nameh4", width: "200px",editable:true},{name:"Valor unitario", field:"nameh5", width: "200px",editable:true},{name:"Valor total", field:"nameh5", width: "200px",editable:true},{name:"Valor con descuento", field:"nameh6", width: "200px",editable:true}]
+structure: [{name:"Cantidad", field:"nameh", width: "200px",editable:true},{name:"Marca", field:"nameh1", width: "200px",editable:true},{name:"Referencia", field:"nameh2", width: "200px",editable:true},{name:"Detalle", field:"nameh3", width: "200px",editable:true},{name:"Rueda", field:"nameh4", width: "200px",editable:true},{name:"Valor unitario", field:"nameh5", width: "200px",editable:true},{name:"Valor total", field:"nameh6", width: "200px",editable:true},{name:"Valor con descuento", field:"nameh7", width: "200px",editable:true}]
 }); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
 
+   
+
 gridh.placeAt("gridDivhh");
+
 
         //Interfaz de historia
       var stateStorem = new Memory({
@@ -459,19 +464,88 @@ gridh.placeAt("gridDivhh");
           searchAttr: "name"
       }, "segundo");
 
+      var totalh = new dijit.form.TextBox({
+                  name: "totalh",
+                  value: "" /* no or empty value! */,
+                  placeHolder: "",
+                  style: "width: 11em;"
+             }, "totalh");
+
+      function updateAllh(){
+            function gotAllh(items, request){
+                            var i;
+                            var tote=0;
+                            for(i = 0; i < items.length; i++){
+                                 var item = items[i];
+                                 //alert(covertJson(store, item));
+                                 
+                                 //store.setValue(item, "name1", value);
+                                 var valueo = storex.getValues(item, "nameh6");
+                                 //console.log(valueo);
+                                 var td = parseInt(valueo[0].displayedValue)
+                                 tote=tote+td;
+                            }
+                            totalh.setValue(tote);
+                        }
+
+            storex.fetch({query: {}, onComplete: gotAllh, queryOptions: {deep:true}});
+            return "";
+      };
+     
       var buttonh = new Button({
         onClick: function () {
         // alert("Se va a insertar un nuevo registro")
+        var canti = new dijit.form.TextBox({
+            name: "nameh",
+            value: "" /* no or empty value! */,
+            placeHolder: ""
+        }, "canti");
+         var totar = new dijit.form.TextBox({
+            name: "nameh5",
+            value: "" /* no or empty value! */,
+            placeHolder: ""
+        }, "totar");
+        var myTextBox = new dijit.form.TextBox({
+            name: "nameh4",
+            value: "" /* no or empty value! */,
+            placeHolder: "",
+            onKeyUp: function (evt) {
+                totar.setValue(canti.get("value")*this.get("value"));
+                updateAllh();
+                 /*
+                    int parseInt = Integer.parseInt(text);
+                    int parseInt1 = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                    int resultado = parseInt * parseInt1;
+                    jTable1.setValueAt(resultado + "", jTable1.getSelectedRow(), 6);
+                 */
+
+            }
+        }, "ou");
+        
         storex.newItem({
-            nameh: "",
+            nameh: canti,
             nameh1: "",
             nameh2: "",
             nameh3: "",
             nameh4: "",
-            nameh5: "",
-            nameh6: ""
+            nameh5: myTextBox,
+            nameh6: totar,
+            nameh7: ""
             });
         }},"addRowh").startup();
+        
+        /*
+         int sumTot = 0;
+         for (int i = 0; i < this.jTable1.getRowCount(); i++) {
+              try {
+                  int parseInt = Integer.parseInt((String) this.jTable1.getValueAt(i, 6));
+                  sumTot = sumTot + parseInt;
+              } catch (Exception e) {
+                  sumTot = +sumTot;
+              }
+              this.Total.setText(sumTot + "");
+        }
+        */
 
        var buttonz = new Button({
         onClick: function () {
@@ -500,5 +574,49 @@ gridh.placeAt("gridDivhh");
         } /* end if */
         }},"guardarh").startup();
 
-        
+
+
+       
+  
+         
+             
+                 
+            /*
+             dojo.connect(gridh, "onRowClick", function(evt)  {
+                     //item = this.getItem(evtx.rowIndex);
+                     //var valuex = this.store.getValue(item, "nameh"); 
+                     console.log(evt);          
+            });     
+
+
+             dojo.connect( gridh, "onRowClick", function(evt) {
+             
+            var idx = evt.rowIndex;
+            var idy = evt.cellIndex;
+            item = this.getItem(idx);
+             
+            //  get a value out of the item
+
+            
+            var value = this.store.getValue(item, "nameh");   
+            console.log(value);
+   
+
+            var handle = dojo.connect(gridh, "onApplyCellEdit", function(value,idx,idy)  {
+                     console.log(value);          
+               });  
+
+            if (evt.cellIndex==0) {
+                     var handle=dojo.connect(gridh, "onKeyPress", function(evtk)  {
+                      console.log(evtk.keyCode);
+                      dojo.disconnect(handle);
+                    });
+             }
+
+              });
+             */
+            
+       
+         
+          
 });

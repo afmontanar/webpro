@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
-
 <link rel="stylesheet" href="{{STATIC_URL}}js/dojo-release-1.10.4/dijit/themes/claro/claro.css">
-	<style type="text/css">
+<style type="text/css">
 @import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/claroGrid.css";
 
 /*Grid needs an explicit height by default*/
 #gridDiv {
-    height: 15em;
+    height: 20em;
 }
-	</style>
-	<script>dojoConfig = {parseOnLoad: true}</script>
-<script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojo/dojo.js'></script>
-	
-	<script>
- require(['dojo/_base/array', 'dojo/_base/lang', 'dojo/_base/event', 'dojo/on', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button', 'dojo/dom', 'dojo/parser', 'dojo/domReady!'],
-  function(array, lang, event, on, DataGrid, ItemFileWriteStore, Button, dom, parser){
-    parser.parse();
+
+  </style>
+  <script>dojoConfig = {async: true, parseOnLoad: false}</script>
+  <script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojo/dojo.js'></script>
+ 
+  
+  <script>
+ require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dojox/grid/cells/dijit', 'dojo/dom', 'dojo/domReady!'],
+  function(lang, DataGrid, ItemFileWriteStore, cells, dom){
     /*set up data store*/
     var data = {
-      identifier: 'id',
+      identifier: "id",
       items: []
     };
     var data_list = [
-      { col1: 'normal', col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
-      { col1: 'important', col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
-      { col1: 'important', col2: false, col3: 'Signs can be selectively', col4: 19.34}
+      { col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
+      { col1: "important", col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
+      { col1: "important", col2: false, col3: 'Signs can be selectively', col4: 19.34}
     ];
     var rows = 60;
     for(var i = 0, l = data_list.length; i < rows; i++){
@@ -37,68 +37,30 @@
     /*set up layout*/
     var layout = [[
       {'name': 'Column 1', 'field': 'id', 'width': '100px'},
-      {'name': 'Column 2', 'field': 'col2', 'width': '100px'},
-      {'name': 'Column 3', 'field': 'col3', 'width': '200px'},
-              {'name': 'Column 4', 'field': 'col4', 'width': '150px'}
+      {'name': 'Column 2', 'field': 'col2', 'width': '100px', editable: true, type: dojox.grid.cells.CheckBox,styles: 'text-align: center;'},
+      {'name': 'Column 3', 'field': 'col3', 'width': '200px', editable: true},
+              {'name': 'Column 4', 'field': 'col4', 'width': '150px', editable: true}
     ]];
 
     /*create a new grid*/
-    grid = new DataGrid({
+    var grid = new DataGrid({
         id: 'grid',
         store: store,
         structure: layout,
         rowSelector: '20px'});
 
     /*append the new grid to the div*/
-    grid.placeAt('gridDiv');
-
-    /* attach an event handler */
-    on(button1,'click',
-    function(e){
-        var items = grid.selection.getSelected();
-        if(items.length) {
-            /* Iterate through the list of selected items.
-            The current item is available in the variable
-            'selectedItem' within the following function: */
-            array.forEach(items, function(selectedItem){
-                if(selectedItem !== null){
-                    /* Iterate through the list of attributes of each item.
-                    The current attribute is available in the variable
-                    'attribute' within the following function: */
-                    array.forEach(grid.store.getAttributes(selectedItem), function(attribute){
-                        /* Get the value of the current attribute:*/
-                        var value = grid.store.getValues(selectedItem, attribute);
-                        /* Now, you can do something with this attribute/value pair.
-                        Our short example shows the attribute together
-                        with the value in an alert box, but we are sure, that
-                        you'll find a more ambitious usage in your own code:*/
-                        alert('attribute: ' + attribute + ', value: ' + value);
-                    }); /* end forEach */
-                } /* end if */
-            }); /* end forEach */
-        } /* end if */
-        event.stop(e);
-    }
-    );
+    grid.placeAt("gridDiv");
 
     /*Call startup() to render the grid*/
     grid.startup();
 });
-	</script>
+  </script>
 </head>
 <body class="claro">
-    <p>
-     Select a single row or multiple rows in the Grid (click on the Selector on the left side of each row).
-     After that, a click on the Button "get all Selected Items" will show you each attribute/value of the
-     selected rows.
+    <p class="info">
+    This example shows how to make columns editable. Please double click any of column 2, column 3 or column 4 to change the cell value.
 </p>
-
 <div id="gridDiv"></div>
-
-<p>
-     <span data-dojo-id="button1">
-         get all Selected Items
-     </span>
- </p>
 </body>
-</html>
+</html> 
