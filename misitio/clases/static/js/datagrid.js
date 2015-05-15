@@ -314,7 +314,7 @@ function covertJson(store, item){
 
 historiaVehiculo = new Dialog({
         title: "Historia de vehiculo",
-        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><input type='button' name='qbdu' value='...' id='qdue'></input></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
+        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='qdue' value='' id='qdue'></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' >...</button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla'></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
         style: "width: 1200px;"
     });
 
@@ -574,7 +574,15 @@ gridh.placeAt("gridDivhh");
         } /* end if */
         }},"guardarh").startup();
 
-
+        var buttod = new Button({
+          onClick: function () {
+            interDueno = new Dialog({
+                title: "Dueño",
+                content: "<form><div class='derechad'><div><label for='cnomp'>Nombres</label><input type='text' name='ccnom' value='' id='ccnom'></input></div></div><div class='derechadd'><div><label for='capes'>Apellidos</label><input type='text' name='capesi' value='' id='capesi'></input></div></div><div class='derechaddd'><div><label for='ciden'>Identificacion</label><input type='text' name='ciden' value='' id='ciden'></input></div></div><div class='derechadddd'><div><label for='cdir'>Direccion</label><input type='text' name='cdiri' value='' id='cdiri'></input></div></div><div class='derechaddddd'><div><label for='ccel'>Celular</label><input type='text' name='cceli' value='' id='cceli'></input></div></div><div class='derechadddddd'><div><button id='llenartc' type='button' >Reiniciar busqueda</button></div></div></form>",
+                style: "width: 800px;"
+            });
+            interDueno.show();
+        }},"dueno").startup();
 
        
   
