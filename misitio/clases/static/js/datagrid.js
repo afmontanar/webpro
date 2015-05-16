@@ -574,18 +574,33 @@ gridh.placeAt("gridDivhh");
         } /* end if */
         }},"guardarh").startup();
 
-        var buttod = new Button({
-          onClick: function () {
-            interDueno = new Dialog({
+        interDueno = new Dialog({
                 title: "Dueño",
-                content: "<form><div class='derechad'><div><label for='cnomp'>Nombres</label><input type='text' name='ccnom' value='' id='ccnom'></input></div></div><div class='derechadd'><div><label for='capes'>Apellidos</label><input type='text' name='capesi' value='' id='capesi'></input></div></div><div class='derechaddd'><div><label for='ciden'>Identificacion</label><input type='text' name='ciden' value='' id='ciden'></input></div></div><div class='derechadddd'><div><label for='cdir'>Direccion</label><input type='text' name='cdiri' value='' id='cdiri'></input></div></div><div class='derechaddddd'><div><label for='ccel'>Celular</label><input type='text' name='cceli' value='' id='cceli'></input></div></div><div class='derechadddddd'><div><button id='llenartc' type='button' >Reiniciar busqueda</button></div></div></form>",
+                content: "<form><div class='derechad'><div><label for='cnomp'>Nombres</label><input type='text' name='ccnom' value='' id='ccnom'></input></div></div><div class='derechadd'><div><label for='capes'>Apellidos</label><input type='text' name='capesi' value='' id='capesi'></input></div></div><div class='derechaddd'><div><label for='ciden'>Identificacion</label><input type='text' name='ciden' value='' id='ciden'></input></div></div><div class='derechadddd'><div><label for='cdir'>Direccion</label><input type='text' name='cdiri' value='' id='cdiri'></input></div></div><div class='derechaddddd'><div><label for='ccel'>Celular</label><input type='text' name='cceli' value='' id='cceli'></input></div></div><div class='derechadddddd'><div><button id='llenartc' type='button' >Reiniciar busqueda</button></div></div><div id='gridDivc'></div></form>",
                 style: "width: 800px;"
             });
-            interDueno.show();
-        }},"dueno").startup();
 
-       
-  
+            var buttod = new Button({
+              onClick: function () {
+              
+                interDueno.show();
+            }},"dueno").startup();
+
+            
+            var datac = {
+                      items: []
+            };
+
+            storec = new dojo.store.JsonRest({target:"/guardar_chofer/"});
+            dataStore = new dojo.data.ObjectStore({objectStore: storei});
+
+            var gridc = new DataGrid({
+                id: 'gridc',
+                store: storec,
+                structure: [{name:"Marca", field:"namec1", width: "200px",editable:true},{name:"Referencia", field:"namec2", width: "200px",editable:true},{name:"Detalle", field:"namec3", width: "200px",editable:true},{name:"Rueda", field:"namec4", width: "200px",editable:true},{name:"Valor unitario", field:"namec5", width: "200px",editable:true}]
+            }); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
+
+            gridc.placeAt("gridDivc");
          
              
                  
