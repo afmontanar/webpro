@@ -576,7 +576,7 @@ gridh.placeAt("gridDivhh");
 
         interDueno = new Dialog({
                 title: "Dueño",
-                content: "<form><div class='derechad'><div><label for='cnomp'>Nombres</label><input type='text' name='ccnom' value='' id='ccnom'></input></div></div><div class='derechadd'><div><label for='capes'>Apellidos</label><input type='text' name='capesi' value='' id='capesi'></input></div></div><div class='derechaddd'><div><label for='ciden'>Identificacion</label><input type='text' name='ciden' value='' id='ciden'></input></div></div><div class='derechadddd'><div><label for='cdir'>Direccion</label><input type='text' name='cdiri' value='' id='cdiri'></input></div></div><div class='derechaddddd'><div><label for='ccel'>Celular</label><input type='text' name='cceli' value='' id='cceli'></input></div></div><div class='derechadddddd'><div><button id='llenartc' type='button' >Reiniciar busqueda</button></div></div><div id='gridDivc'></div></form>",
+                content: "<form><div class='derechad'><div><label for='cnomp'>Nombres</label><input type='text' name='ccnom' value='' id='identificacionc'></input></div></div><div class='derechadd'><div><label for='capes'>Apellidos</label><input type='text' name='capesi' value='' id='capesi'></input></div></div><div class='derechaddd'><div><label for='ciden'>Identificacion</label><input type='text' name='ciden' value='' id='ciden'></input></div></div><div class='derechadddd'><div><label for='cdir'>Direccion</label><input type='text' name='cdiri' value='' id='cdiri'></input></div></div><div class='derechaddddd'><div><label for='ccel'>Celular</label><input type='text' name='cceli' value='' id='cceli'></input></div></div><div class='derechadddddd'><div><button id='llenartc' type='button' >Reiniciar busqueda</button></div></div><div id='gridDivc'></div></form>",
                 style: "width: 800px;"
             });
 
@@ -592,16 +592,63 @@ gridh.placeAt("gridDivhh");
             };
 
             storec = new dojo.store.JsonRest({target:"/guardar_chofer/"});
-            dataStore = new dojo.data.ObjectStore({objectStore: storei});
+            dataStore = new dojo.data.ObjectStore({objectStore: storec});
 
             var gridc = new DataGrid({
                 id: 'gridc',
-                store: storec,
-                structure: [{name:"Marca", field:"namec1", width: "200px",editable:true},{name:"Referencia", field:"namec2", width: "200px",editable:true},{name:"Detalle", field:"namec3", width: "200px",editable:true},{name:"Rueda", field:"namec4", width: "200px",editable:true},{name:"Valor unitario", field:"namec5", width: "200px",editable:true}]
+                store: dataStore,
+                structure: [{name:"Identificacion", field:"namec1", width: "200px",editable:true},{name:"primeroNombre", field:"namec2", width: "200px",editable:true},{name:"primeroApellido", field:"namec3", width: "200px",editable:true},{name:"direccion", field:"namec4", width: "200px",editable:true},{name:"celular", field:"namec5", width: "200px",editable:true},{name:"detalle", field:"namec5", width: "200px",editable:true}]
             }); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
 
+             
             gridc.placeAt("gridDivc");
          
+            var identificacionc = new dijit.form.TextBox({
+            name: "identificacionc",
+            value: "" /* no or empty value! */,
+            placeHolder: "",
+            onKeyUp: function (evt) {      
+                xhr.get({
+                    url: '/busqueda_filtreada/',
+                        //type: 'get',
+
+                        content: {
+                            id: this.get("value")      
+                        },
+                        // The success callback with result from server
+                        load: function(newContent) {
+                            var obj = JSON.parse(newContent);
+                            var dataxc = {
+                                      items: obj
+                                 }
+                            
+                            storecx = new ItemFileWriteStore({data: dataxc}); 
+
+                            gridc.setStore(storecx);           
+                            console.log(newContent);
+                            //dom.byId("contentNode").innerHTML = newContent;
+                            //storec = new dojo.store.JsonRest(data:newContent)
+                            //dataStore = new dojo.data.ObjectStore({objectStore: storec});
+                        },
+                        // The error handler
+                        error: function() {
+                            // Do nothing -- keep old content there
+                        }
+                });
+
+                 /*
+                    totar.setValue(canti.get("value")*this.get("value"));
+                    updateAllh();
+
+                    int parseInt = Integer.parseInt(text);
+                    int parseInt1 = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                    int resultado = parseInt * parseInt1;
+                    jTable1.setValueAt(resultado + "", jTable1.getSelectedRow(), 6);
+                 */
+
+            },
+            style: "width: 11em;"
+        }, "identificacionc");
              
                  
             /*

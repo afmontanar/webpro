@@ -112,18 +112,51 @@ def guardar_pregunta(request):
 			)"""
 
 def guardar_chofer(request):
-	cliente = Cliente.objects.get(pk='1100688003')
-	print(cliente.primeroNombre)
+	chofer = Cliente.objects.all()
+	
 	"""return HttpResponse(
 			json.dumps({'nombre': cliente.TipoIdentificacion, 'descripcion': cliente.numeroId, 'url': cliente.primeroNombre,'nombres': cliente.TipoIdentificacion, 'descripcions': cliente.numeroId, 'urls': cliente.primeroNombre }),
 			content_type="application/json; charset=uft8"
 			)
+			
 
 			json.dumps({'identifier': 'id','items': [col1: "normal", col2: "normal", col3: "normal", col4: "normal",col5: "normal", col6: "normal"]})
 	{"""
 
+	myList=[]
+	i=0
+	for dato in chofer:
+		myList.append({"id":i,"namec1":dato.numeroId,"namec2":dato.primeroNombre,"namec3":dato.primeroApellido,"namec4":dato.celular,"namec5":dato.detalles})
+		i=i+1
+	
 	return HttpResponse(
-			json.dumps([{"id":0,"name":"Andres","name1":"AL","name2":"Montgomery","name3":"Montgomery","name4":"Montgomery","name5":"Montgomery"},
-			{"id":1,"name":"montana","name1":"AK","name2":"Juneau","name3":"Montgomery","name4":"Montgomery","name5":"Montgomery"}]),
+			json.dumps(myList),
 			content_type="application/json; charset=uft8"
 			)
+
+def busqueda_filtreada(request):
+	if request.is_ajax():
+		pregunta = request.GET['id']
+		chofer = Cliente.objects.filter(numeroId=pregunta)
+		
+		"""return HttpResponse(
+				json.dumps({'nombre': cliente.TipoIdentificacion, 'descripcion': cliente.numeroId, 'url': cliente.primeroNombre,'nombres': cliente.TipoIdentificacion, 'descripcions': cliente.numeroId, 'urls': cliente.primeroNombre }),
+				content_type="application/json; charset=uft8"
+				)
+				
+
+				json.dumps({'identifier': 'id','items': [col1: "normal", col2: "normal", col3: "normal", col4: "normal",col5: "normal", col6: "normal"]})
+		{"""
+
+		myList=[]
+		i=0
+		for dato in chofer:
+			myList.append({"id":i,"namec1":dato.numeroId,"namec2":dato.primeroNombre,"namec3":dato.primeroApellido,"namec4":dato.celular,"namec5":dato.detalles})
+			i=i+1
+		
+		return HttpResponse(
+				json.dumps(myList),
+				content_type="application/json; charset=uft8"
+				)
+	
+
