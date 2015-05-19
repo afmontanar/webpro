@@ -2,236 +2,66 @@
 <html >
 <head>
 
+  <link rel="stylesheet" href="{{STATIC_URL}}js/dojo-release-1.10.4/dijit/themes/claro/claro.css">
+  <style type="text/css">
+@import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/claroGrid.css";
 
-<link rel="stylesheet" href="{{STATIC_URL}}js/dojo-release-1.10.4/dijit/themes/claro/claro.css">
-<style type="text/css">
-@import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/Grid.css";
-@import "{{STATIC_URL}}js/dojo-release-1.10.4/dojox/grid/resources/nihiloGrid.css";
-.dojoxGrid table {
-    margin: 0;
+/*Grid needs an explicit height by default*/
+#gridDiv {
+    height: 20em;
 }
-</style>
-    <script>dojoConfig = {parseOnLoad: true}</script>
-   <script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojo/dojo.js'></script>
-    
-    <script>
-var geoData2 = {
-      items: [
+  </style>
+  <script>dojoConfig = {async: true, parseOnLoad: false}</script>
+  <script src='{{STATIC_URL}}js/dojo-release-1.10.4/dojo/dojo.js'></script>
+  
+  <script>
+ require(['dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dojox/grid/cells/dijit', 'dojo/dom', 'dojo/domReady!'],
+  function(lang, DataGrid, ItemFileWriteStore, cells, dom){
+    /*set up data store*/
+    var data = {
+      identifier: "id",
+      items: []
+    };
+    var data_list = [
       { col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
       { col1: "important", col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
       { col1: "important", col2: false, col3: 'Signs can be selectively', col4: 19.34}
-        ]
-    };
+    ];
+    var rows = 60;
+    for(var i = 0, l = data_list.length; i < rows; i++){
+      data.items.push(lang.mixin({ id: i+1 }, data_list[i%l]));
+    }
+    var store = new ItemFileWriteStore({data: data});
 
-
-
-var layoutGeo2 =  [[
+    /*set up layout*/
+    var layout = [[
       {'name': 'Column 1', 'field': 'id', 'width': '100px'},
-      {'name': 'Column 2', 'field': 'col2', 'width': '100px'},
-      {'name': 'Column 3', 'field': 'col3', 'width': '200px'},
-      {'name': 'Column 4', 'field': 'col4', 'width': '150px'}
+      {'name': 'Column 2', 'field': 'col2', 'width': '100px', editable: true, type: dojox.grid.cells.CheckBox,styles: 'text-align: center;'},
+      {'name': 'Column 3', 'field': 'col3', 'width': '200px', editable: true},
+              {'name': 'Column 4', 'field': 'col4', 'width': '150px', editable: true}
     ]];
 
+    /*create a new grid*/
+    var grid = new DataGrid({
+        id: 'grid',
+        store: store,
+        structure: layout,
+        rowSelector: '20px'});
 
-require(["dojo/ready", "dojo/on", "dojo/_base/json", "dojo/parser", "dojo/data/ItemFileWriteStore", "dijit/form/Button", "dijit/form/NumberSpinner", "dijit/form/TextBox", "dojox/grid/DataGrid"], function(ready, on, json){
-    // This function performs some basic dojo initialization. In this case it connects the button
-    // onClick to a function which invokes the fetch(). The fetch function queries for all items
-    // and provides callbacks to use for completion of data retrieval or reporting of errors.
-    ready(function(){
-        var itemToJS = function(store, item){
-            // summary: Function to convert an item into a simple JS object.
-            // store:
-            //    The datastore the item came from.
-            // item:
-            //    The item in question.
-            var js = {};
-            if(item && store){
-                // Determine the attributes we need to process.
-                var attributes = store.getAttributes(item);
-                if(attributes && attributes.length > 0){
-                    var i;
-                    for(i = 0; i < attributes.length; i++){
-                        var values = store.getValues(item, attributes[i]);
-                        if(values){
-                            // Handle multivalued and single-valued attributes.
-                            if(values.length > 1 ){
-                                var j;
-                                js[attributes[i]] = [];
-                                for(j = 0; j < values.length; j++ ){
-                                    var value = values[j];
-                                    // Check that the value isn't another item. If it is, process it as an item.
-                                    if(store.isItem(value)){
-                                        js[attributes[i]].push(itemToJS(store, value));
-                                    }else{
-                                        js[attributes[i]].push(value);
-                                    }
-                                }
-                            }else{
-                                if(store.isItem(values[0])){
-                                    js[attributes[i]] = itemToJS(store, values[0]);
-                                }else{
-                                    js[attributes[i]] = values[0];
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return js;
-        };
+    /*append the new grid to the div*/
+    grid.placeAt("gridDiv");
 
-        geoStore2._saveCustom = function(saveComplete, saveFailed){
-            //  summary:
-            //    This is a custom save function for the geoStore to allow emitting only the modified items as
-            //    a block of JSON text.
-            var changeSet  = geoStore2._pending;
-            var changes = {};
-            changes.modified = [];
-            for(var i in changeSet._modifiedItems){
-                // Use the identity to look up the current version of the item from the store's array
-                // Can't use the object IN the modified items array because it is the saved state before modification.
-                var item = null;
-                // Find the modified item, it can be in one of two places to look up
-                // Either by an explicit identity if it was specified, or by its index.
-                if(geoStore2._itemsByIdentity){
-                    item = geoStore2._itemsByIdentity[i];
-                }else{
-                    item = geoStore2._arrayOfAllItems[i];
-                }
-                changes.modified.push(itemToJS(geoStore2, item));
-            }
-            alert(json.toJson(changes, true)+"Este es el json convertido");
-            saveComplete();
-        };
-
-
-        // Function to perform a fetch on the datastore when a button is clicked
-        function updateAll(){
-            // Callback for processing a returned list of items.
-            function gotAll(items, request){
-                var value = spinner2.getValue();
-                if( value >= 0 ){
-                    var i;
-                    for(i = 0; i < items.length; i++){
-                        var item = items[i];
-                        geoStore2.setValue(item, "population", value);
-                    }
-                }
-            }
-
-            // Callback for if the lookup fails.
-            function fetchFailed(error, request){
-                alert("lookup failed.");
-                alert(error);
-            }
-
-            // Fetch the data.
-            geoStore2.fetch({query: {type:"city"}, onComplete: gotAll, onError: fetchFailed, queryOptions: {deep:true}});
-        }
-        // Link the click event of the button to driving the fetch.
-        on(button3, "click", function(){
-            updateAll();
-            geoStore2.save();
-        });
-    });
+    /*Call startup() to render the grid*/
+    grid.startup();
 });
-    </script>
+  </script>
 </head>
 <body class="claro">
-   <form > 
-<div id="flotante">
-<div class="izquierdad">
-<legend  style="font-weight: bold;">Datos del cliente (Dueño del vehiculo)</legend>
-<div class="izquierda">
-
-<div>
-<label for="tipi">Tipo de identificacion: </label>
- 
-<!--<input data-dojo-type="dijit/form/ValidationTextBox" title="Tipo de identificacion:" name="tipi" data-dojo-props="required: true"></input>-->
-<input id="stateSelect">
-</div>
-
-<div>
-  <label for="pnom">Primer nombre: </label>
-    <!--{{form.primeroNombre}}-->
-    <input type="text" name="pnom" value="" id="pnom"></input>
-</div>
-
-<div>
-  <label for="snom">Segundo nombre: </label>
-      <!--{{form.segunNombre}}-->
-      <input type="text" name="snom" value="" id="snom"></input>
-</div>
- 
-<div>
-  <label for="papellido">Primer apellido: </label>
-      <input type="text" name="pape" value="" id="pape"></input>
-  <!--{{form.primeroApellido}}-->
-</div>
-
-<div>
-  <label for="sapellido">Segundo apellido: </label>
-  <!--{{form.segundoApellido}}-->
-  <input type="text" name="sape" value="" id="sape"></input>
-</div>
-
-</div>
+    <p class="info">
+    This example shows how to make columns editable. Please double click any of column 2, column 3 or column 4 to change the cell value.
+</p>
 
 
-
-<div class="derecha">
-<div>
-  <label for="nide">Numero Id </label>
-  <!--{{form.numeroId}}-->
-  <input type="text" name="numid" value="" id="numid"></input>
-</div>
-
-<div>
-  <label for="dir">Direccion: </label>
-    <input type="text" name="dir" value="" id="dir"></input>
-  <!--{{form.direccion}}-->
-</div>
-
-<div>
-  <label for="detail">Detalle: </label>
-  <input type="text" name="deta" value="" id="deta"></input>
-   <!--{{form.detalles}}-->
-</div>
- 
-<div>
-  <label for="cel">Celular: </label>
-   <input type="text" name="cel" value="" id="cel"></input>
-  <!--{{form.celular}}-->
-</div>
-</div>
-</div>
-
-<div class="espacio">
-
-</div>
-
-
-
-<div class="grilla">
-<div class="bajar" >
-
-  <button id="addRow" data-dojo-type="dijit/form/Button" >
-    Agregar Fila
-  </button>
-
-  <button id="guardar" data-dojo-type="dijit/form/Button">
-    Guardar
-  </button>
-
-
-</div>
-<div class="bajarq">
-<div id="gridDiv" ></div>
-</div>
-</div>
-
-</div>
-</form>
+<div id="gridDiv"></div>
 </body>
 </html>
-

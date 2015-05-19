@@ -19,7 +19,7 @@ def clientes(request):
 	return render_to_response('cliente.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
 
 def clienteu(request):
-	return render_to_response('eventgrilla.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
+	return render_to_response('untitled.html', {'nothing': 'nothing'}, context_instance=RequestContext(request))
 
 """
 def clientes(request, template_name='cliente.html'):
@@ -136,8 +136,7 @@ def guardar_chofer(request):
 
 def busqueda_filtreada(request):
 	if request.is_ajax():
-		pregunta = request.GET['id']
-		chofer = Cliente.objects.filter(numeroId=pregunta)
+		chofer = Cliente.objects.all()
 		
 		"""return HttpResponse(
 				json.dumps({'nombre': cliente.TipoIdentificacion, 'descripcion': cliente.numeroId, 'url': cliente.primeroNombre,'nombres': cliente.TipoIdentificacion, 'descripcions': cliente.numeroId, 'urls': cliente.primeroNombre }),
