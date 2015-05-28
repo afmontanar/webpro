@@ -314,7 +314,7 @@ function covertJson(store, item){
 
 historiaVehiculo = new Dialog({
         title: "Historia de vehiculo",
-        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><input type='button' name='qsus' value='...' id='qsus'></input></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='duenoc' value='' id='duenoc' disabled></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' >...</button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla' disabled></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
+        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><button type='button' value='...' id='chofe'></button></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='duenoc' value='' id='duenoc' disabled></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' value='...'></button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla' disabled></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
         style: "width: 1200px;"
     });
 
@@ -544,7 +544,7 @@ gridh.placeAt("gridDivhh");
               try {
                   int parseInt = Integer.parseInt((String) this.jTable1.getValueAt(i, 6));
                   sumTot = sumTot + parseInt;1100688003
-              } catch (Exception e) {
+              } catch (Exception e) {chofer
                   sumTot = +sumTot;
               }
               this.Total.setText(sumTot + "");
@@ -658,6 +658,53 @@ gridh.placeAt("gridDivhh");
                 llenarTabla();
                 interDueno.show();
             }},"dueno").startup();
+
+            interChofer = new Dialog({
+                title: "Chofer",
+                content: "<form><div id='gridDivc'></div></form>",
+                style: "width: 800px;"
+            });
+
+            var buttoc = new Button({
+              onClick: function () {           
+                if(duenoc.value!=""){
+                   interChofer.show();
+                   mandarClienteaChofer(identificacionc.value);
+                }else{
+                   alert("Debe escoger un chofer");
+                }
+            }},"chofe").startup();
+
+            function mandarClienteaChofer(idCliente){
+                xhr.get({
+                   url: '/tener_Chofe_client/',
+                        //type: 'get',
+
+                        content: {
+                              id: idCliente    
+                        },
+                        // The success callback with result from server
+                        load: function(newContent) {
+                          console.log(newContent);
+                            /*    
+                            var obj = JSON.parse(newContent);
+                            var dataxc = {
+                                      items: obj
+                                 }
+                            
+                            storecx = new ItemFileWriteStore({data: dataxc}); 
+                            gridc.setStore(storecx); 
+                            */
+                            //dom.byId("contentNode").innerHTML = newContent;
+                            //storec = new dojo.store.JsonRest(data:newContent)
+                            //dataStore = new dojo.data.ObjectStore({objectStore: storec});
+                        },
+                        // The error handler
+                        error: function() {
+                            // Do nothing -- keep old content there
+                        }
+                });
+            }
 
             var identificacionc = new dijit.form.TextBox({
             name: "identificacionc",

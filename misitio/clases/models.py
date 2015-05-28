@@ -39,8 +39,6 @@ class Chofer(models.Model):
     def __unicode__(self):
         return self.id
 
-    def get_absolute_url(self):
-        return reverse('chofer', kwargs={'pk':self.pk})
 
 
 class HistoriaVehiculo(models.Model):

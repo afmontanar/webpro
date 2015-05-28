@@ -44,13 +44,15 @@ def guardar_pregunta(request):
 		dt = request.GET['dt']
 		st = request.GET['st']
 		#myList=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
+		print(st)
+
 		myList=[]
 		#   for x in st:
 		#	print(x)
+		myList.append("name")  
 		myList.append("")  
 		a=0
-		b=0
-		
+		b=1
 		while (a<len(st)):		
 			if(":" == st[a]):
 				a += 1
@@ -85,13 +87,13 @@ def guardar_pregunta(request):
 		#for two colums print(st[12:-214]):
 		try:
 			r = Cliente.objects.create(TipoIdentificacion=ti, numeroId=pregunta, primeroNombre=pm,segunNombre=sn,primeroApellido=pa,segundoApellido=sa,direccion=di,celular=cl,detalles=dt)
-			print(len(myList))
+			
 			h=len(myList)/12
-			print(h)
+		
 			j=0
 			for x in xrange(0,h):
-				o = Chofer.objects.create(cliente_id=pregunta,Identificacion=myList[j],primeroNombre=myList[j],primeroApellido=myList[j],direccion=myList[j],celular=myList[j],detalle=myList[j])
-				j=j+10
+				o = Chofer.objects.create(cliente_id=pregunta,Identificacion=myList[j+1],primeroNombre=myList[j+3],primeroApellido=myList[j+5],direccion=myList[j+7],celular=myList[j+9],detalle=myList[j+11])
+				j=j+12
 			#o = Chofer.objects.create(cliente=pregunta,Identificacion=,primeroNombre=,segunNombre=,primeroApellido=,segundoApellido=,direccion=,celular=,detalle=)
 			return HttpResponse(
 			json.dumps({'respuesta': 'si'}),
@@ -158,4 +160,28 @@ def busqueda_filtreada(request):
 				content_type="application/json; charset=uft8"
 				)
 	
+def tener_Chofe_client(request):
+	if request.is_ajax():
+		chofer = Chofer.objects.filter(cliente_id=request.GET['id'])
+		
+		"""return HttpResponse(
+				json.dumps({'nombre': cliente.TipoIdentificacion, 'descripcion': cliente.numeroId, 'url': cliente.primeroNombre,'nombres': cliente.TipoIdentificacion, 'descripcions': cliente.numeroId, 'urls': cliente.primeroNombre }),
+				content_type="application/json; charset=uft8"
+				)
+				
+
+				json.dumps({'identifier': 'id','items': [col1: "normal", col2: "normal", col3: "normal", col4: "normal",col5: "normal", col6: "normal"]})
+		{"""
+		
+		myList=[]
+		i=0
+		for dato in chofer:
+			myList.append({"id":i,"namech1":dato.Identificacion,"namech2":dato.primeroNombre,"namech3":dato.primeroApellido,"namech4":dato.celular,"namech5":dato.detalle})
+			i=i+1
+		
+		return HttpResponse(
+				json.dumps(myList),
+				content_type="application/json; charset=uft8"
+				)
+
 

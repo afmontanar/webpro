@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^guardar-pregunta/$', views.guardar_pregunta, name='guardar_pregunta'),
   	url(r'^guardar_chofer/$', views.guardar_chofer, name='guardar_chofer'),
   	url(r'^busqueda_filtreada/$', views.busqueda_filtreada, name='busqueda_filtreada'),
+  	url(r'^tener_Chofe_client/$', views.tener_Chofe_client, name='tener_Chofe_client')
   	
   
 )
