@@ -314,7 +314,7 @@ function covertJson(store, item){
 
 historiaVehiculo = new Dialog({
         title: "Historia de vehiculo",
-        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='qbch' value='' id='qbch'></input></div></div><div class='derechahhhhh'><div><button type='button' value='...' id='chofe'></button></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='duenoc' value='' id='duenoc' disabled></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' value='...'></button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla' disabled></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
+        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='chofec' value='' id='chofec'></input></div></div><div class='derechahhhhh'><div><button type='button' value='...' id='chofe'></button></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='duenoc' value='' id='duenoc' disabled></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' value='...'></button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla' disabled></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
         style: "width: 1200px;"
     });
 
@@ -333,13 +333,7 @@ store: storex,
 structure: [{name:"Cantidad", field:"nameh", width: "200px",editable:false},{name:"Marca", field:"nameh1", width: "200px",editable:true},{name:"Referencia", field:"nameh2", width: "200px",editable:true},{name:"Detalle", field:"nameh3", width: "200px",editable:true},{name:"Rueda", field:"nameh4", width: "200px",editable:true},{name:"Valor unitario", field:"nameh5", width: "200px",editable:false},{name:"Valor total", field:"nameh6", width: "200px",editable:false},{name:"Valor con descuento", field:"nameh7", width: "200px",editable:true}]
 }); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};---,type: dojox.grid.cells.TextBox, onKeyUp: function (evt) {totar.setValue(canti.get("value")*this.get("value")); updateAllh();}
 
- 
-              
-
-   
-
 gridh.placeAt("gridDivhh");
-
 
         //Interfaz de historia
       var stateStorem = new Memory({
@@ -659,17 +653,63 @@ gridh.placeAt("gridDivhh");
                 interDueno.show();
             }},"dueno").startup();
 
+            var datad = {
+                  items: []
+            }
+
+            var stored = new ItemFileWriteStore({data: datad});
+
+
+            var gridd = new DataGrid({
+            id: 'gridd',
+            store: stored,
+            structure: [{name:"Identificacion", field:"named", width: "200px",editable:false},{name:"Nombres", field:"named1", width: "200px",editable:false},{name:"Apellidos", field:"named2", width: "200px",editable:false},{name:"Direccion", field:"named3", width: "200px",editable:false},{name:"Celular", field:"named4", width: "200px",editable:false},{name:"Detalle", field:"named5", width: "200px",editable:false}],
+            onRowDblClick: function(evt) {
+                     var items = this.selection.getSelected();
+                    if(items.length) {
+                        /* Iterate through the list of selected items.
+                        The current item is available in the variable
+                        'selectedItem' within the following function: */
+                        array.forEach(items, function(selectedItem){
+                            if(selectedItem !== null){
+                                /* Iterate through the list of attributes of each item.
+                                The current attribute is available in the variable
+                                'attribute' within the following function: */
+                                array.forEach(storedx.getAttributes(selectedItem), function(attribute){
+                                    /* Get the value of the current attribute:*/
+                                    var value = storedx.getValues(selectedItem, attribute);
+                                    /* Now, you can do something with this attribute/value pair.
+                                    Our short example shows the attribute together
+                                    with the value in an alert box, but we are sure, that
+                                    you'll find a more ambitious usage in your own code:*/
+                                    if(attribute=='named'){
+
+                                        chofec.setValue(value);
+                                        interChofer.hide();
+                                    }
+                                    
+                                }); /* end forEach */
+                            } /* end if */
+                        }); /* end forEach */
+                    } /* end if */
+                }
+            }); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};---,type: dojox.grid.cells.TextBox, onKeyUp: function (evt) {totar.setValue(canti.get("value")*this.get("value")); updateAllh();}
+
+
             interChofer = new Dialog({
                 title: "Chofer",
-                content: "<form><div id='gridDivc'></div></form>",
+                content: "<form><div id='gridDivd'></div></form>",
                 style: "width: 800px;"
             });
+
+
+            gridd.placeAt("gridDivd");
 
             var buttoc = new Button({
               onClick: function () {           
                 if(duenoc.value!=""){
                    interChofer.show();
-                   mandarClienteaChofer(identificacionc.value);
+                   mandarClienteaChofer(duenoc.value);
                 }else{
                    alert("Debe escoger un chofer");
                 }
@@ -685,16 +725,15 @@ gridh.placeAt("gridDivhh");
                         },
                         // The success callback with result from server
                         load: function(newContent) {
-                          console.log(newContent);
-                            /*    
+                             
                             var obj = JSON.parse(newContent);
-                            var dataxc = {
+                            var datadc = {
                                       items: obj
                                  }
                             
-                            storecx = new ItemFileWriteStore({data: dataxc}); 
-                            gridc.setStore(storecx); 
-                            */
+                            storedx = new ItemFileWriteStore({data: datadc}); 
+                            gridd.setStore(storedx); 
+                          
                             //dom.byId("contentNode").innerHTML = newContent;
                             //storec = new dojo.store.JsonRest(data:newContent)
                             //dataStore = new dojo.data.ObjectStore({objectStore: storec});
@@ -750,6 +789,14 @@ gridh.placeAt("gridDivhh");
             style: "width: 11em;",
             disabled: "true"
         }, "duenoc");
+
+        var chofec = new dijit.form.TextBox({
+            name: "chofec",
+            value: "" /* no or empty value! */,
+            placeHolder: "",
+            style: "width: 11em;",
+            disabled: "true"
+        }, "chofec");
              
                  
             /*

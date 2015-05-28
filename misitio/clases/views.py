@@ -162,6 +162,7 @@ def busqueda_filtreada(request):
 	
 def tener_Chofe_client(request):
 	if request.is_ajax():
+
 		chofer = Chofer.objects.filter(cliente_id=request.GET['id'])
 		
 		"""return HttpResponse(
@@ -176,8 +177,9 @@ def tener_Chofe_client(request):
 		myList=[]
 		i=0
 		for dato in chofer:
-			myList.append({"id":i,"namech1":dato.Identificacion,"namech2":dato.primeroNombre,"namech3":dato.primeroApellido,"namech4":dato.celular,"namech5":dato.detalle})
+			myList.append({"named":dato.Identificacion,"named1":dato.primeroNombre,"named2":dato.primeroApellido,"named3":dato.direccion,"named4":dato.celular,"named5":dato.detalle})
 			i=i+1
+			
 		
 		return HttpResponse(
 				json.dumps(myList),

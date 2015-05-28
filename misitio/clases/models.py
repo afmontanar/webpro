@@ -37,8 +37,10 @@ class Chofer(models.Model):
     detalle = models.CharField(max_length=300, blank=True)
     
     def __unicode__(self):
-        return self.id
+        return self.Identificacion
 
+    def get_absolute_url(self):
+        return reverse('choferes', kwargs={'pk':self.pk})
 
 
 class HistoriaVehiculo(models.Model):
