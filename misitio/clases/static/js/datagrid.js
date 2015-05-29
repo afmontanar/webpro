@@ -1,5 +1,5 @@
-require(['dojo/_base/array','dojo/_base/json','dijit/DropDownMenu','dijit/MenuItem','dijit/Menu','dijit/PopupMenuBarItem','dijit/MenuBar','dijit/Dialog','dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
-function(array,json,DropDownMenu,MenuItem,Menu,PopupMenuBarItem,MenuBar,Dialog,JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
+require(['dojo/_base/declare', 'dijit/form/DateTextBox', 'dojo/date/locale','dojo/_base/array','dojo/_base/json','dijit/DropDownMenu','dijit/MenuItem','dijit/Menu','dijit/PopupMenuBarItem','dijit/MenuBar','dijit/Dialog','dojo/store/JsonRest','dojo/data/ObjectStore','dojo/_base/lang', 'dojox/grid/DataGrid', 'dojo/data/ItemFileWriteStore', 'dijit/form/Button',"dojo/_base/xhr", "dojo/store/Memory", "dijit/form/ComboBox",'dojo/dom', 'dojo/domReady!','dijit/form/ValidationTextBox'],
+function(declare, DateTextBox, locale, array,json,DropDownMenu,MenuItem,Menu,PopupMenuBarItem,MenuBar,Dialog,JsonRest,ObjectStore,lang, DataGrid, ItemFileWriteStore, Button, xhr,Memory, ComboBox, dom, domReady, ValidationTextBox) {
 /*set up data store*/
 
 /*
@@ -314,7 +314,7 @@ function covertJson(store, item){
 
 historiaVehiculo = new Dialog({
         title: "Historia de vehiculo",
-        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='qfeh' value='' id='qfeh'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='chofec' value='' id='chofec'></input></div></div><div class='derechahhhhh'><div><button type='button' value='...' id='chofe'></button></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='duenoc' value='' id='duenoc' disabled></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' value='...'></button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla' disabled></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totdes' value='' id='totdes'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
+        content: "<form><div class='derechahhhhhhh'><div><button id='guardarh' type='button'>Guardar</button></div></div><div class='derechahhhhhh'><div><label for='lfeh'>Fecha</label><input type='text' name='oracle' value='' id='oracle'></input></div></div><div class='derechahhhh'><div><label for='lcho'>Chofer</label><input type='text' name='chofec' value='' id='chofec'></input></div></div><div class='derechahhhhh'><div><button type='button' value='...' id='chofe'></button></div></div><div class='derechahh'><div><label for='ldue'>Dueno</label><input type='text' name='duenoc' value='' id='duenoc' disabled></input></div></div><div class='derechahhh'><div><button id='dueno' type='button' value='...'></button></div></div><div class='derechah'><div><label for='lpla'>Placa</label><input type='text' name='qpla' value='' id='qpla' disabled></input></div></div><div class='izquierdah'><div><label for='lnom'>Nombre</label><input type='text' name='qnom' value='' id='qnom'></input></div></div><div class='espaciox'></div><div class='izquierdahb'><div><label for='hora'>Hora</label><input type='text' name='hora' value='' id='hora'></input></div></div><div class='izquierdahhb'><div><label for='minu'>Minuto</label><input type='text' name='minuto' value='' id='minuto'></input></div></div><div class='izquierdahhhb'><div><label for='seg'>Segundo</label><input type='text' name='segundo' value='' id='segundo'></input></div></div><div id='gridDivhh'></div><div class='agrrow'><div><button id='addRowh' type='button' >Agregar Fila</button></div></div><div class='totaldes'><div><label for='totdes'>Total con descuento</label><input type='totdes' name='totald' value='' id='totald'></input></div></div><div class='total'><div><label for='tot'>Total</label><input type='text' name='totalh' value='' id='totalh'></input></div></div></form>",
         style: "width: 1200px;"
     });
 
@@ -330,7 +330,7 @@ var storex = new ItemFileWriteStore({data: datax});
 var gridh = new DataGrid({
 id: 'gridh',
 store: storex,
-structure: [{name:"Cantidad", field:"nameh", width: "200px",editable:false},{name:"Marca", field:"nameh1", width: "200px",editable:true},{name:"Referencia", field:"nameh2", width: "200px",editable:true},{name:"Detalle", field:"nameh3", width: "200px",editable:true},{name:"Rueda", field:"nameh4", width: "200px",editable:true},{name:"Valor unitario", field:"nameh5", width: "200px",editable:false},{name:"Valor total", field:"nameh6", width: "200px",editable:false},{name:"Valor con descuento", field:"nameh7", width: "200px",editable:true}]
+structure: [{name:"Cantidad", field:"nameh", width: "200px",editable:false},{name:"Marca", field:"nameh1", width: "200px",editable:true},{name:"Referencia", field:"nameh2", width: "200px",editable:true},{name:"Detalle", field:"nameh3", width: "200px",editable:true},{name:"Rueda", field:"nameh4", width: "200px",editable:true},{name:"Valor unitario", field:"nameh5", width: "200px",editable:false},{name:"Valor total", field:"nameh6", width: "200px",editable:false},{name:"Valor con descuento", field:"nameh7", width: "200px",editable:false}]
 }); // {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};---,type: dojox.grid.cells.TextBox, onKeyUp: function (evt) {totar.setValue(canti.get("value")*this.get("value")); updateAllh();}
 
 gridh.placeAt("gridDivhh");
@@ -462,10 +462,19 @@ gridh.placeAt("gridDivhh");
 
       var totalh = new dijit.form.TextBox({
                   name: "totalh",
+                  editable: false,
                   value: "" /* no or empty value! */,
                   placeHolder: "",
                   style: "width: 11em;"
              }, "totalh");
+
+      var totald = new dijit.form.TextBox({
+                  name: "totald",
+                  editable: false,
+                  value: "" /* no or empty value! */,
+                  placeHolder: "",
+                  style: "width: 11em;"
+             }, "totald");
 
       function updateAllh(){
             function gotAllh(items, request){
@@ -487,6 +496,23 @@ gridh.placeAt("gridDivhh");
             storex.fetch({query: {}, onComplete: gotAllh, queryOptions: {deep:true}});
             return "";
       };
+
+      function updateAlls(){
+            function gotAlls(items, request){
+                            var i;
+                            var tote=0;
+                            for(i = 0; i < items.length; i++){
+                                 var item = items[i];
+                                 var valueo = storex.getValues(item, "nameh7");
+                                 var td = parseInt(valueo[0].displayedValue);
+                                 tote=tote+td;
+                            }
+                            totald.setValue(tote);
+                        }
+
+            storex.fetch({query: {}, onComplete: gotAlls, queryOptions: {deep:true}});
+            return "";
+      };
      
       var buttonh = new Button({
         onClick: function () {
@@ -503,6 +529,23 @@ gridh.placeAt("gridDivhh");
             disabled: "true"
         }, "totar");
         
+        var totarConDes = new dijit.form.TextBox({
+            name: "nameh7",
+            value: "" /* no or empty value! */,
+            placeHolder: "",
+            onKeyUp: function (evt) {
+                
+                updateAlls();
+                    /*
+                    int parseInt = Integer.parseInt(text);
+                    int parseInt1 = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                    int resultado = parseInt * parseInt1;
+                    jTable1.setValueAt(resultado + "", jTable1.getSelectedRow(), 6);
+                 `  */
+
+            }
+        }, "totar");
+
         var myTextBox = new dijit.form.TextBox({
             name: "nameh4",
             value: "",
@@ -528,7 +571,7 @@ gridh.placeAt("gridDivhh");
             nameh4: "",
             nameh5: myTextBox,
             nameh6: totar,
-            nameh7: ""
+            nameh7: totarConDes
             });
         }},"addRowh").startup();
         
@@ -798,7 +841,33 @@ gridh.placeAt("gridDivhh");
             disabled: "true"
         }, "chofec");
              
-                 
+        declare("OracleDateTextBox", DateTextBox, {
+            oracleFormat: {selector: 'date', datePattern: 'yyyy/MM/dd', locale: 'en-us'},
+            value: "", // prevent parser from trying to convert to Date objectdeclare, DateTextBox, locale, 
+            postMixInProperties: function(){ // change value string to Date object
+                this.inherited(arguments);
+                // convert value to Date object
+                this.value = locale.parse(this.value, this.oracleFormat);
+            },
+            // To write back to the server in Oracle format, override the serialize method:
+            serialize: function(dateObject, options){
+                return locale.format(dateObject, this.oracleFormat).toUpperCase();
+            }
+        });
+
+        function showServerValue(){
+            //dom.byId('toServerValue').value = document.getElementsByName('oracle')[0].value;
+        }
+
+        new OracleDateTextBox({
+            value: "31-DEC-2009",
+            name: "oracle",
+            style: "width: 11em;",
+            onChange: function(v){ setTimeout(showServerValue, 0)}
+        }, "oracle").startup();
+
+        showServerValue();  
+              
             /*
              dojo.connect(gridh, "onRowClick", function(evt)  {identificacionc
                      //item = this.getItem(evtx.rowIndex);
